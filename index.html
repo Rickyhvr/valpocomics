@@ -209,7 +209,7 @@
                         <div class="absolute -inset-1 bg-gradient-to-tr from-huntrix-cyan via-huntrix-purple to-huntrix-crimson rounded-2xl blur-lg opacity-75 group-hover:opacity-100 transition duration-500"></div>
                         <div class="relative bg-huntrix-card rounded-2xl overflow-hidden border border-gray-800 shadow-2xl p-2">
                             <div class="relative rounded-xl overflow-hidden group">
-                                <img src="copertina.jpg" alt="Copertina Ufficiale - Episodio 1" class="w-full h-auto object-cover transform group-hover:scale-105 transition-all duration-700">
+                                <img src="assets/comics/capitolo-1/copertina.jpg" alt="Copertina Ufficiale - Episodio 1" class="w-full h-auto object-cover transform group-hover:scale-105 transition-all duration-700">
                                 
                                 <div class="absolute top-3 left-3 bg-black/85 backdrop-blur-md border border-huntrix-cyan/60 text-huntrix-cyan text-xs font-tech font-bold px-3 py-1.5 rounded-md shadow-neon-cyan flex items-center gap-2">
                                     <i class="fa-solid fa-bolt text-yellow-400"></i> EPISODIO 01
@@ -282,13 +282,13 @@
 
             <!-- Character Filter Bar (Optional quick categories) -->
             <div class="flex justify-center flex-wrap gap-2 mb-10 text-xs font-tech">
-                <button onclick="filterCharacters('all')" class="char-filter-btn px-4 py-2 rounded-full bg-huntrix-cyan text-black font-bold">TUTTI (10)</button>
+                <button onclick="filterCharacters('all')" class="char-filter-btn px-4 py-2 rounded-full bg-huntrix-cyan text-black font-bold">TUTTI (8)</button>
                 <button onclick="filterCharacters('vanguard')" class="char-filter-btn px-4 py-2 rounded-full bg-huntrix-card text-gray-300 border border-gray-800 hover:border-huntrix-cyan">ATTACCO</button>
                 <button onclick="filterCharacters('tactical')" class="char-filter-btn px-4 py-2 rounded-full bg-huntrix-card text-gray-300 border border-gray-800 hover:border-huntrix-purple">TATTICA & DIFESA</button>
             </div>
 
             <!-- Roster Grid -->
-            <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+            <div id="character-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- Personaggi verranno generati dinamicamente via JS -->
             </div>
         </div>
@@ -351,104 +351,46 @@
             <!-- Reader Controls Toolbar -->
             <div class="bg-huntrix-card border border-gray-800 rounded-t-xl p-4 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <span class="font-tech text-sm text-huntrix-cyan font-bold"><i class="fa-solid fa-book-open"></i> CAP. 1: "L'Anomalia"</span>
-                    <span class="text-xs text-gray-500">| Pagina <span id="current-page-num">1</span> di <span id="total-pages-num">5</span></span>
+                    <span id="reader-chapter-title" class="font-tech text-sm text-huntrix-cyan font-bold"><i class="fa-solid fa-book-open mr-1"></i> CAP. 1: "L'Anomalia"</span>
+                    <span class="text-xs text-gray-400">| Tavola <span id="current-page-num" class="text-white font-bold">1</span> di <span id="total-pages-num" class="text-white font-bold">17</span></span>
                 </div>
 
-                <!-- Mode Switcher -->
+                <!-- Mode Switcher & Tools -->
                 <div class="flex items-center gap-2 font-tech text-xs">
-                    <button onclick="setReaderMode('webtoon')" id="mode-webtoon-btn" class="px-3 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all">
+                    <button onclick="setReaderMode('webtoon')" id="mode-webtoon-btn" class="px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-arrows-up-down"></i> Webtoon (Scroll)
                     </button>
-                    <button onclick="setReaderMode('paged')" id="mode-paged-btn" class="px-3 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all">
+                    <button onclick="setReaderMode('paged')" id="mode-paged-btn" class="px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5">
                         <i class="fa-solid fa-file-lines"></i> Paginato
                     </button>
                 </div>
             </div>
 
             <!-- Reader Canvas Container -->
-            <div id="reader-view-box" class="bg-gray-950 border border-gray-800 min-h-[500px] flex justify-center items-center p-4 relative overflow-y-auto max-h-[750px]">
+            <div id="reader-view-box" class="bg-gray-950 border border-gray-800 min-h-[500px] flex justify-center items-start p-4 relative overflow-y-auto max-h-[850px]">
                 
                 <!-- Webtoon Mode Display (Vertical Cards Container) -->
-                <div id="webtoon-container" class="w-full max-w-2xl space-y-6">
-                    <!-- Comic Cover Panel -->
-                    <div class="comic-page-panel bg-huntrix-card border border-gray-800 rounded-lg p-5 shadow-xl relative text-center">
-                        <div class="text-xs font-tech text-huntrix-cyan mb-3 flex items-center justify-between">
-                            <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-star text-yellow-400"></i> COPERTINA UFFICIALE</span>
-                            <span class="text-gray-400 font-mono">VOLUME 1 • EPISODIO 1</span>
-                        </div>
-                        <div class="rounded-lg overflow-hidden border border-huntrix-cyan/40 shadow-neon-cyan mb-3">
-                            <img src="copertina.jpg" alt="Copertina Ufficiale Fumetto" class="w-full h-auto object-cover">
-                        </div>
-                        <p class="text-xs text-gray-400 italic">Copertina ufficiale del primo episodio e primo fumetto.</p>
-                    </div>
-
-                    <!-- Comic Panel Pages (Webtoon Style) -->
-                    <div class="comic-page-panel bg-huntrix-card border border-gray-800 rounded-lg p-6 shadow-xl relative text-center">
-                        <div class="text-xs font-tech text-huntrix-cyan mb-2">TAVOLA 1 - RISVEGLIO</div>
-                        <!-- SVG Graphic Comic Placeholder Panel -->
-                        <svg class="w-full h-80 rounded bg-gray-900 border border-gray-800" viewBox="0 0 600 400">
-                            <rect width="600" height="400" fill="#0f1017" />
-                            <!-- Comic Panel Lines -->
-                            <polygon points="20,20 380,20 350,220 20,220" fill="#181a29" stroke="#06b6d4" stroke-width="2"/>
-                            <polygon points="390,20 580,20 580,220 360,220" fill="#1e1b4b" stroke="#8b5cf6" stroke-width="2"/>
-                            <rect x="20" y="230" width="560" height="150" fill="#17101f" stroke="#f43f5e" stroke-width="2"/>
-                            <!-- Comic Dialogue Bubble -->
-                            <rect x="50" y="50" width="220" height="60" rx="15" fill="#ffffff"/>
-                            <polygon points="100,110 120,110 90,135" fill="#ffffff"/>
-                            <text x="70" y="85" font-family="Bangers" font-size="18" fill="#000000">"QUALCOSA STA CAMBIANDO..."</text>
-
-                            <text x="300" y="310" font-family="Orbitron" font-size="22" fill="#06b6d4" font-weight="bold" text-anchor="middle">NEO-VERONA, ORE 03:00 AM</text>
-                        </svg>
-                        <p class="text-xs text-gray-400 mt-3 italic">La città risplende sotto i neon mentre un impulso d'energia incrina il cielo nocturno.</p>
-                    </div>
-
-                    <div class="comic-page-panel bg-huntrix-card border border-gray-800 rounded-lg p-6 shadow-xl relative text-center">
-                        <div class="text-xs font-tech text-huntrix-purple mb-2">TAVOLA 2 - INCONTRO INATTESO</div>
-                        <svg class="w-full h-80 rounded bg-gray-900 border border-gray-800" viewBox="0 0 600 400">
-                            <rect width="600" height="400" fill="#0b0c10" />
-                            <circle cx="300" cy="200" r="140" fill="#1a1c29" stroke="#8b5cf6" stroke-width="3" stroke-dasharray="8 4"/>
-                            <text x="300" y="190" font-family="Bangers" font-size="32" fill="#ffffff" text-anchor="middle">MAVERICK & ALE</text>
-                            <text x="300" y="225" font-family="Orbitron" font-size="14" fill="#06b6d4" text-anchor="middle">"Dobbiamo radunare gli altri immediatamente."</text>
-                        </svg>
-                    </div>
-
-                    <div class="comic-page-panel bg-huntrix-card border border-gray-800 rounded-lg p-6 shadow-xl relative text-center">
-                        <div class="text-xs font-tech text-huntrix-crimson mb-2">TAVOLA 3 - LA MINACCIA DELL'ECLIPSE</div>
-                        <svg class="w-full h-80 rounded bg-gray-900 border border-gray-800" viewBox="0 0 600 400">
-                            <rect width="600" height="400" fill="#150a12" />
-                            <path d="M 100,300 L 300,50 L 500,300 Z" fill="#2d0b1e" stroke="#f43f5e" stroke-width="3"/>
-                            <text x="300" y="220" font-family="Bangers" font-size="40" fill="#f43f5e" text-anchor="middle">WARNING: SINGULARITY ACTIVE</text>
-                        </svg>
-                    </div>
-
-                    <div class="comic-page-panel bg-huntrix-card border border-gray-800 rounded-lg p-6 shadow-xl relative text-center">
-                        <div class="text-xs font-tech text-yellow-400 mb-2">TAVOLA 4 - L'UNIONE FA LA FORZA</div>
-                        <svg class="w-full h-80 rounded bg-gray-900 border border-gray-800" viewBox="0 0 600 400">
-                            <rect width="600" height="400" fill="#081420" />
-                            <text x="300" y="180" font-family="Bangers" font-size="48" fill="#06b6d4" text-anchor="middle">HUNTRIX ASSEMBLE!</text>
-                            <text x="300" y="240" font-family="Orbitron" font-size="14" fill="#ffffff" text-anchor="middle">CONTINUA NEL PROSSIMO CAPITOLO...</text>
-                        </svg>
-                    </div>
+                <div id="webtoon-container" class="w-full max-w-3xl space-y-6">
+                    <!-- Popolato dinamicamente da initReader() -->
                 </div>
 
                 <!-- Paged Mode Display (Single Page with Prev/Next buttons) -->
-                <div id="paged-container" class="hidden w-full max-w-xl flex flex-col items-center">
+                <div id="paged-container" class="hidden w-full max-w-3xl flex flex-col items-center">
                     <div id="paged-single-content" class="w-full">
-                        <!-- Dynamic content filled via JS -->
+                        <!-- Popolato dinamicamente in modalità paginata -->
                     </div>
                 </div>
 
             </div>
 
-            <!-- Bottom Navigation Bar for Reader -->
+            <!-- Bottom Navigation Bar for Reader (Paged Mode) -->
             <div id="paged-nav-bar" class="hidden bg-huntrix-card border-t-0 border border-gray-800 rounded-b-xl p-4 flex items-center justify-between">
-                <button onclick="prevComicPage()" class="px-5 py-2 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all">
-                    <i class="fa-solid fa-chevron-left mr-2"></i> PRECEDENTE
+                <button onclick="prevComicPage()" class="px-5 py-2.5 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all flex items-center gap-2">
+                    <i class="fa-solid fa-chevron-left"></i> PRECEDENTE
                 </button>
-                <span class="text-xs font-tech text-gray-400">PAGINA <span id="paged-page-current">1</span> / <span id="paged-page-total">5</span></span>
-                <button onclick="nextComicPage()" class="px-5 py-2 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all">
-                    SUCCESSIVA <i class="fa-solid fa-chevron-right ml-2"></i>
+                <span class="text-xs font-tech text-gray-400">TAVOLA <span id="paged-page-current" class="text-white font-bold">1</span> / <span id="paged-page-total" class="text-white font-bold">17</span></span>
+                <button onclick="nextComicPage()" class="px-5 py-2.5 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all flex items-center gap-2">
+                    SUCCESSIVA <i class="fa-solid fa-chevron-right"></i>
                 </button>
             </div>
         </div>
@@ -467,7 +409,7 @@
                 <div class="bg-huntrix-card border border-huntrix-cyan/30 rounded-xl p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 hover:border-huntrix-cyan transition-all group">
                     <div class="flex items-center gap-4">
                         <div class="relative w-24 h-16 rounded-lg overflow-hidden border border-huntrix-cyan/50 shadow-neon-cyan shrink-0 group-hover:scale-105 transition-transform">
-                            <img src="copertina.jpg" alt="Copertina Ufficiale Episodio 1" class="w-full h-full object-cover">
+                            <img src="assets/comics/capitolo-1/copertina.jpg" alt="Copertina Ufficiale Episodio 1" class="w-full h-full object-cover">
                             <span class="absolute bottom-1 right-1 bg-black/80 text-[10px] font-tech text-huntrix-cyan px-1.5 py-0.5 rounded font-bold">01</span>
                         </div>
                         <div>
@@ -476,7 +418,7 @@
                                 <span class="text-[10px] font-tech text-gray-400">Episodio 1</span>
                             </div>
                             <h4 class="font-tech text-lg font-bold text-white group-hover:text-huntrix-cyan transition-colors">Capitolo 1: L'Anomalia</h4>
-                            <p class="text-xs text-gray-400">Copertina Ufficiale Inclusa • 5 Tavole nel Reader</p>
+                            <p class="text-xs text-gray-400">Copertina Ufficiale Inclusa • 16 Tavole Complete nel Reader</p>
                         </div>
                     </div>
                     <a href="#reader" onclick="openReader(1)" class="px-5 py-2.5 bg-huntrix-cyan text-black font-tech text-xs font-bold rounded-lg hover:bg-cyan-300 transition-colors w-full sm:w-auto text-center shrink-0 shadow-neon-cyan">
@@ -539,127 +481,103 @@
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Database dei 10 Personaggi Protagonisti
+        // Database dei Personaggi (Protagonisti, Alleati e Antagonisti)
         const characters = [
             {
                 id: 'maverick',
                 name: 'Maverick',
                 role: 'Leader Strategico',
-                category: 'vanguard',
-                power: 'Manipolazione Tattica & Campo di Forza',
-                icon: 'fa-shield-halved',
+                category: 'tactical',
+                power: 'Materializzazione tramite Disegno',
+                icon: 'fa-pen-nib',
                 color: 'huntrix-cyan',
-                desc: 'Determinato e carismatico, Maverick guida la squadra con visione tattica impeccabile e uno scudo energetico impenetrabile.',
+                desc: 'La mente tattica del gruppo. Maverick possiede il formidabile potere di materializzare nel mondo reale qualsiasi oggetto disegni sul suo blocco: da un semplice smartphone per chiamare rinforzi fino a un carro armato in miniatura. La sua creatività è la sua arma più potente.',
                 powerLevel: 92,
                 speedLevel: 80
             },
             {
                 id: 'ale',
                 name: 'Ale',
-                role: 'Co-Leader & Assaltatore',
+                role: "Combattente d'Assalto",
                 category: 'vanguard',
-                power: 'Lame al Plasma Energetico',
+                power: 'Energia Ki (Stile Goku)',
                 icon: 'fa-bolt-lightning',
                 color: 'huntrix-crimson',
-                desc: 'Combattente formidabile a corto raggio. Le sue lame al plasma possono fendere qualsiasi materiale metallico o sintetico.',
-                powerLevel: 95,
-                speedLevel: 88
+                desc: "Dotato di un'energia spirituale travolgente, Ale può muoversi a velocità supersoniche, generare barriere sferiche protettive e scagliare devastanti onde energetiche (Kamehameha). Quando sprigiona la sua aura blu, è la punta di diamante offensiva della squadra.",
+                powerLevel: 98,
+                speedLevel: 96
             },
             {
                 id: 'pietro',
                 name: 'Pietro',
-                role: 'Vanguard Pesante',
+                role: 'Combattente Corpo a Corpo',
                 category: 'vanguard',
-                power: 'Densità Corporea & Forza Titanica',
+                power: 'Corpo di Gomma (Stile Gum-Gum)',
                 icon: 'fa-hand-fist',
                 color: 'huntrix-purple',
-                desc: 'Il pilastro difensivo di Huntrix. Può decuplicare la propria densità corporea diventando letteralmente inamovibile.',
-                powerLevel: 98,
-                speedLevel: 60
+                desc: "Agile, imprevedibile e sempre pronto all'azione. Pietro ha la capacità di deformare e allungare i propri arti come se fossero fatti di gomma, permettendogli di scagliare pugni devastanti da enormi distanze come il suo caratteristico Gum-Gum Pistol.",
+                powerLevel: 94,
+                speedLevel: 88
             },
             {
                 id: 'james',
                 name: 'James',
-                role: 'Infiltratore / Velocista',
-                category: 'vanguard',
-                power: 'Super Velocità & Fasi Quantistiche',
-                icon: 'fa-gauge-high',
+                role: 'Telecineta',
+                category: 'tactical',
+                power: 'Telecinesi Psionica',
+                icon: 'fa-brain',
                 color: 'yellow-400',
-                desc: 'Scatta a velocità supersoniche e può attraversare ostacoli solidi sfasando la sua struttura molecolare.',
-                powerLevel: 78,
-                speedLevel: 99
+                desc: 'James possiede abilità telecinetiche spaventose (simili a quelle di Undici) che gli permettono di sollevare automobili, divellere cassette della posta e manipolare oggetti pesanti con la forza della mente. Un potere letale che, quando spinto al limite, lo porta allo stremo fisico.',
+                powerLevel: 96,
+                speedLevel: 75
             },
             {
-                id: 'tommy',
-                name: 'Tommy',
-                role: 'Specialista Tecnologico',
-                category: 'tactical',
-                power: 'Technopath & Hacking Mentale',
-                icon: 'fa-microchip',
+                id: 'nicolo',
+                name: 'Nicolò',
+                role: "Elementale dell'Elettricità",
+                category: 'vanguard',
+                power: 'Folgorazione',
+                icon: 'fa-bolt',
                 color: 'huntrix-cyan',
-                desc: 'Genio cibernetico in grado di interfacciarsi istantaneamente con qualsiasi rete, drone o sistema d\'arma nemico.',
-                powerLevel: 70,
+                desc: "Nicolò controlla l'elemento del fulmine. A mani tese, è in grado di scagliare scariche elettriche abbaglianti e far precipitare tuoni dal cielo per interrompere gli attacchi avversari con una precisione chirurgica.",
+                powerLevel: 92,
+                speedLevel: 89
+            },
+            {
+                id: 'aurora-z',
+                name: 'Aurora Z.',
+                role: 'Manipolatrice Magica (Huntrix)',
+                category: 'tactical',
+                power: 'Raggio Vorticoso Arancione',
+                icon: 'fa-wand-magic-sparkles',
+                color: 'huntrix-purple',
+                desc: "Un pilastro assoluto delle Huntrix. Dalle sue mani scaturisce una potente magia arancione capace di avvolgere i nemici a mezz'aria in un tornado energetico, annullare le loro abilità e manipolarne la gravità scaraventandoli a terra come macigni.",
+                powerLevel: 95,
                 speedLevel: 85
             },
             {
-                id: 'giosue',
-                name: 'Giosuè',
-                role: 'Tiratore Scelto',
+                id: 'tommy-giosue',
+                name: 'Tommy e Giosuè',
+                role: 'Antagonisti / Burattinai',
                 category: 'tactical',
-                power: 'Precisione Balistica Telecinetica',
-                icon: 'fa-crosshair',
+                power: 'Ipnosi e Controllo Mentale',
+                icon: 'fa-masks-theater',
                 color: 'huntrix-crimson',
-                desc: 'Padroneggia il combattimento a lunga distanza. Guida i suoi proiettili a base di energia con la sola forza del pensiero.',
-                powerLevel: 89,
-                speedLevel: 82
+                desc: "Operano nell'ombra come spietati manipolatori. Hanno il potere di soggiogare la mente altrui, svuotando gli occhi delle loro vittime di ogni volontà per costringerle a usare i propri poteri contro i loro stessi alleati.",
+                powerLevel: 91,
+                speedLevel: 78
             },
             {
-                id: 'aurora',
-                name: 'Aurora',
-                role: 'Supporto Mistico',
-                category: 'tactical',
-                power: 'Luce Guaritrice & Illusione',
-                icon: 'fa-wand-magic-sparkles',
-                color: 'huntrix-purple',
-                desc: 'Infonde speranza e vigore nella squadra curando le ferite e creando illusioni ottiche per depistare le truppe avversarie.',
-                powerLevel: 84,
-                speedLevel: 86
-            },
-            {
-                id: 'gioia',
-                name: 'Gioia',
-                role: 'Controllo Elementare',
+                id: 'squadra-assalto',
+                name: 'Aurora B., Gioia, Ludo e Giorgia',
+                role: "Squadra d'Assalto (Huntrix)",
                 category: 'vanguard',
-                power: 'Dominio del Ghiaccio & Crio-Scudi',
-                icon: 'fa-snowflake',
+                power: 'Sinergia Elementale',
+                icon: 'fa-users',
                 color: 'huntrix-cyan',
-                desc: 'Capace di congelare l\'umidità dell\'aria per bloccare la marcia nemica e creare barriere di cristallo purissimo.',
-                powerLevel: 90,
-                speedLevel: 79
-            },
-            {
-                id: 'ludo',
-                name: 'Ludo',
-                role: 'Esploratore Spaziale',
-                category: 'tactical',
-                power: 'Teletrasporto & Portali Brevi',
-                icon: 'fa-circle-nodes',
-                color: 'huntrix-purple',
-                desc: 'Apripista della squadra. Genera micro-portali per spostare istantaneamente i compagni nei punti chiave del campo di battaglia.',
-                powerLevel: 76,
-                speedLevel: 95
-            },
-            {
-                id: 'giorgia',
-                name: 'Giorgia',
-                role: 'Tattica Psichica',
-                category: 'tactical',
-                power: 'Telepatia & Legame di Squadra',
-                icon: 'fa-brain',
-                color: 'huntrix-crimson',
-                desc: 'Mantiene una rete di comunicazione mentale telepatica costante tra tutti e 10 i membri di Huntrix in combattimento.',
-                powerLevel: 88,
-                speedLevel: 84
+                desc: 'Il cuore pulsante della squadra Huntrix. Insieme ad Aurora Z., completano uno schieramento formidabile, pronte a scendere in campo e unire i loro poteri quando le minacce superano il livello di guardia e gli eroi solitari hanno bisogno di supporto.',
+                powerLevel: 97,
+                speedLevel: 92
             }
         ];
 
@@ -748,15 +666,82 @@
             modal.classList.remove('flex');
         }
 
-        // Reader Mode Switching (Webtoon vs Paginato)
-        let currentPage = 1;
+        // Configurazione Capitoli & Vignette del Fumetto (16 Tavole + Copertina)
+        const comicChapters = {
+            1: {
+                id: 1,
+                title: "Capitolo 1: L'Anomalia",
+                basePath: "assets/comics/capitolo-1/",
+                pages: [
+                    { file: "copertina.jpg", badge: "COPERTINA UFFICIALE", title: "Copertina", subtitle: "Valpocomics • Episodio 1" },
+                    { file: "vin1.jpg", badge: "TAVOLA 1", title: "L'Inizio dell'Anomalia", subtitle: "Neo-Verona, Notte Fonda" },
+                    { file: "vin2.jpg", badge: "TAVOLA 2", title: "Segnali dall'Oscurità", subtitle: "Sospetto e Tensione" },
+                    { file: "vin3.jpg", badge: "TAVOLA 3", title: "Nel Cuore dell'Ombra", subtitle: "Tracce Clandestine" },
+                    { file: "vin4.jpg", badge: "TAVOLA 4", title: "La Presenza", subtitle: "Qualcuno ci osserva" },
+                    { file: "vin5.jpg", badge: "TAVOLA 5", title: "Il Contatto", subtitle: "Primo Ingaggio" },
+                    { file: "vin6.jpg", badge: "TAVOLA 6", title: "Reazione Improvvisa", subtitle: "Riflessi Lampo" },
+                    { file: "vin7.jpg", badge: "TAVOLA 7", title: "Punto di Rottura", subtitle: "La Barriera si Incrina" },
+                    { file: "vin8.jpg", badge: "TAVOLA 8", title: "Lo Scontro Si Accende", subtitle: "Lame ed Energia" },
+                    { file: "vin9.jpg", badge: "TAVOLA 9", title: "Forza Sovrumana", subtitle: "Impatto Violento" },
+                    { file: "vin10.jpg", badge: "TAVOLA 10", title: "Assalto Tattico", subtitle: "Coordinazione Perfetta" },
+                    { file: "vin11.jpg", badge: "TAVOLA 11", title: "Mossa Decisiva", subtitle: "Nessuna Esitazione" },
+                    { file: "vin12.jpg", badge: "TAVOLA 12", title: "Potenza Scatenata", subtitle: "Sovraccarico Energetico" },
+                    { file: "vin13.jpg", badge: "TAVOLA 13", title: "Oltre il Limite", subtitle: "Resistenza Estrema" },
+                    { file: "vin14.jpg", badge: "TAVOLA 14", title: "Fronte Comune", subtitle: "Insieme Fino alla Fine" },
+                    { file: "vin15.jpg", badge: "TAVOLA 15", title: "L'Impatto Finale", subtitle: "Il Colpo di Grazia" },
+                    { file: "vin16.jpg", badge: "TAVOLA 16", title: "Epilogo & Rivelazione", subtitle: "Continua nel Prossimo Capitolo..." }
+                ]
+            }
+        };
 
-        function getTotalPages() {
-            const pages = document.querySelectorAll('#webtoon-container .comic-page-panel');
-            return pages.length || 5;
+        // Reader Mode Switching (Webtoon vs Paginato)
+        let currentChapter = 1;
+        let currentPage = 1;
+        let currentMode = 'webtoon';
+
+        function initReader(chapNum = 1) {
+            currentChapter = chapNum;
+            const chapter = comicChapters[chapNum] || comicChapters[1];
+            currentPage = 1;
+            
+            const titleElem = document.getElementById('reader-chapter-title');
+            if (titleElem) {
+                titleElem.innerHTML = `<i class="fa-solid fa-book-open mr-1"></i> ${chapter.title}`;
+            }
+
+            const total = chapter.pages.length;
+            const totalElem = document.getElementById('total-pages-num');
+            if (totalElem) totalElem.innerText = total;
+
+            const pagedTotalElem = document.getElementById('paged-page-total');
+            if (pagedTotalElem) pagedTotalElem.innerText = total;
+
+            // Popola modalità Webtoon (tutte le 16 vignette + copertina a scorrimento verticale)
+            const webtoonContainer = document.getElementById('webtoon-container');
+            webtoonContainer.innerHTML = '';
+
+            chapter.pages.forEach((page, index) => {
+                const panel = document.createElement('div');
+                panel.className = 'comic-page-panel bg-huntrix-card border border-gray-800 hover:border-huntrix-cyan/40 rounded-xl p-3 sm:p-5 shadow-2xl transition-all relative text-center';
+                panel.id = `webtoon-page-${index + 1}`;
+                panel.innerHTML = `
+                    <div class="text-xs font-tech text-huntrix-cyan mb-2.5 flex items-center justify-between px-1">
+                        <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-bolt text-yellow-400"></i> ${page.badge}</span>
+                        <span class="text-gray-400 font-mono text-[11px]">${page.subtitle}</span>
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-gray-800 shadow-neon-cyan/20 bg-black">
+                        <img src="${chapter.basePath}${page.file}" alt="${page.title}" loading="lazy" class="w-full h-auto object-cover rounded-md block">
+                    </div>
+                `;
+                webtoonContainer.appendChild(panel);
+            });
+
+            // Prepara anche la prima pagina per la modalità paginata
+            renderPagedContent();
         }
 
         function setReaderMode(mode) {
+            currentMode = mode;
             const webtoonContainer = document.getElementById('webtoon-container');
             const pagedContainer = document.getElementById('paged-container');
             const pagedNavBar = document.getElementById('paged-nav-bar');
@@ -769,38 +754,49 @@
                 pagedContainer.classList.add('hidden');
                 pagedNavBar.classList.add('hidden');
 
-                btnWebtoon.className = 'px-3 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all';
-                btnPaged.className = 'px-3 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all';
+                btnWebtoon.className = 'px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5';
+                btnPaged.className = 'px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5';
             } else {
                 webtoonContainer.classList.add('hidden');
                 pagedContainer.classList.remove('hidden');
                 pagedNavBar.classList.remove('hidden');
 
-                btnPaged.className = 'px-3 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all';
-                btnWebtoon.className = 'px-3 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all';
+                btnPaged.className = 'px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5';
+                btnWebtoon.className = 'px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5';
                 
                 renderPagedContent();
             }
         }
 
         function renderPagedContent() {
+            const chapter = comicChapters[currentChapter] || comicChapters[1];
+            const page = chapter.pages[currentPage - 1];
+            if (!page) return;
+
             const container = document.getElementById('paged-single-content');
-            const pages = document.querySelectorAll('#webtoon-container .comic-page-panel');
-            const total = pages.length;
-            
-            if(pages[currentPage - 1]) {
-                container.innerHTML = pages[currentPage - 1].outerHTML;
-            }
+            container.innerHTML = `
+                <div class="bg-huntrix-card border border-gray-800 rounded-xl p-4 sm:p-6 shadow-2xl text-center">
+                    <div class="text-xs font-tech text-huntrix-cyan mb-3 flex items-center justify-between px-2">
+                        <span class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt text-yellow-400"></i> ${page.badge} - ${page.title}</span>
+                        <span class="text-gray-400 font-mono">${page.subtitle}</span>
+                    </div>
+                    <div class="rounded-lg overflow-hidden border border-gray-800 bg-black shadow-neon-cyan/20">
+                        <img src="${chapter.basePath}${page.file}" alt="${page.title}" class="w-full h-auto max-h-[720px] object-contain mx-auto rounded-md">
+                    </div>
+                </div>
+            `;
+
             document.getElementById('current-page-num').innerText = currentPage;
-            document.getElementById('total-pages-num').innerText = total;
             document.getElementById('paged-page-current').innerText = currentPage;
+            const total = chapter.pages.length;
+            document.getElementById('total-pages-num').innerText = total;
             const pagedTotalElem = document.getElementById('paged-page-total');
             if (pagedTotalElem) pagedTotalElem.innerText = total;
         }
 
         function nextComicPage() {
-            const total = getTotalPages();
-            if(currentPage < total) {
+            const chapter = comicChapters[currentChapter] || comicChapters[1];
+            if(currentPage < chapter.pages.length) {
                 currentPage++;
                 renderPagedContent();
             }
@@ -813,13 +809,23 @@
             }
         }
 
-        function openReader(chapNum) {
+        function openReader(chapNum = 1) {
+            initReader(chapNum);
             document.getElementById('reader').scrollIntoView({ behavior: 'smooth' });
         }
+
+        // Navigazione da tastiera per la modalità paginata (frecce sinistra / destra)
+        window.addEventListener('keydown', (e) => {
+            if (currentMode === 'paged') {
+                if (e.key === 'ArrowRight') nextComicPage();
+                if (e.key === 'ArrowLeft') prevComicPage();
+            }
+        });
 
         // Inizializzazione al caricamento pagina
         window.onload = function() {
             renderCharacters(characters);
+            initReader(1);
         };
     </script>
 </body>
