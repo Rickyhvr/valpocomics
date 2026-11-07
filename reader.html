@@ -2,7 +2,7 @@
 <html lang="it" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Valpocomics - Comic Reader Interattivo | Episodio 1</title>
 
     <!-- Tailwind CSS -->
@@ -88,7 +88,7 @@
     </nav>
 
     <!-- MAIN READER CONTAINER -->
-    <main class="flex-grow pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+    <main class="main-reader-container flex-grow pt-20 sm:pt-28 pb-10 sm:pb-16 px-3 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
         
         <!-- Header -->
         <div class="text-center mb-8">
@@ -103,46 +103,68 @@
             </p>
         </div>
 
-        <!-- Toolbar: Titolo Tavola + Contatore Pagine + Schermo Intero -->
-        <div class="bg-huntrix-card border border-gray-800 rounded-t-xl p-4 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex items-center gap-3">
-                <span class="comic-page-badge">
-                    <i class="fa-solid fa-bolt text-yellow-400"></i>
-                    <span id="current-page-title">COPERTINA UFFICIALE</span>
-                </span>
-                <span id="current-page-subtitle" class="text-xs text-gray-400 font-tech hidden sm:inline">Volume 01 • Episodio 1</span>
+        <!-- Header Toolbar: Titolo Tavola + Contatore Pagine + Schermo Intero + Stampa -->
+        <div class="comic-reader-toolbar bg-huntrix-card border border-gray-800 rounded-t-xl p-3 sm:p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-3 sm:gap-4">
+            <!-- Parte Superiore su Mobile / Sinistra su Desktop -->
+            <div class="comic-toolbar-top flex items-center justify-between md:justify-start gap-3 w-full md:w-auto">
+                <div class="flex items-center gap-2.5 sm:gap-3">
+                    <span class="comic-page-badge">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        <span id="current-page-title">COPERTINA UFFICIALE</span>
+                    </span>
+                    <span id="current-page-subtitle" class="text-xs text-gray-400 font-tech hidden lg:inline">Volume 01 • Episodio 1</span>
+                </div>
+
+                <!-- Tasto Schermo Intero visibile su Mobile (< md) -->
+                <div class="flex md:hidden items-center gap-2 shrink-0">
+                    <button onclick="toggleFullscreenReader()" class="w-10 h-10 min-h-[40px] min-w-[40px] rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Schermo Intero">
+                        <i class="fa-solid fa-expand text-sm"></i>
+                    </button>
+                </div>
             </div>
 
-            <div class="flex items-center gap-3">
+            <!-- Parte Inferiore su Mobile / Destra su Desktop -->
+            <div class="comic-toolbar-bottom flex items-center justify-between md:justify-end gap-2.5 sm:gap-3 w-full md:w-auto">
                 <!-- Contatore Pagine -->
-                <div class="comic-counter-box text-sm">
+                <div class="comic-counter-box text-xs sm:text-sm min-h-[44px] sm:min-h-[48px] shrink-0">
                     <span>PAGINA</span>
                     <span id="current-page-num" class="text-white font-bold">1</span>
                     <span class="counter-total">di <span id="total-pages-num">17</span></span>
                 </div>
 
-                <!-- Tasto Schermo Intero -->
-                <button onclick="toggleFullscreenReader()" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Schermo Intero">
-                    <i class="fa-solid fa-expand"></i>
-                </button>
+                <!-- Tasto Schermo Intero su Desktop (≥ md) -->
+                <div class="hidden md:flex items-center gap-2.5">
+                    <button onclick="toggleFullscreenReader()" class="w-11 h-11 min-h-[44px] min-w-[44px] rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Schermo Intero">
+                        <i class="fa-solid fa-expand text-base"></i>
+                    </button>
+                </div>
 
-                <!-- Pulsante Versione Manga A4 (Stampa) -->
-                <a href="stampa.html" target="_blank" class="px-3.5 py-2 rounded-lg bg-gradient-to-r from-huntrix-cyan to-huntrix-purple hover:opacity-95 text-black font-bold text-xs font-tech flex items-center gap-1.5 transition-all shadow-neon-cyan" title="Apri Versione Stampabile Manga A4">
-                    <i class="fa-solid fa-print"></i>
-                    <span>Versione Manga A4 (Stampa)</span>
+                <!-- Pulsante Versione Manga A4 (Stampa) Reattivo e Proporzionato -->
+                <a href="stampa.html" target="_blank" class="comic-print-btn min-h-[44px] sm:min-h-[48px] px-3.5 sm:px-4 py-2 sm:py-2.5 rounded-lg bg-gradient-to-r from-huntrix-cyan to-huntrix-purple hover:opacity-95 text-black font-bold text-xs font-tech flex items-center gap-1.5 transition-all shadow-neon-cyan whitespace-nowrap shrink-0" title="Apri Versione Stampabile Manga A4">
+                    <i class="fa-solid fa-print text-sm"></i>
+                    <span class="hidden sm:inline">Versione Manga A4 (Stampa)</span>
+                    <span class="sm:hidden">Stampa A4</span>
                 </a>
             </div>
         </div>
 
         <!-- Visualizzatore Principale Centrale (Sfondo Cyber Dark, Bordo Viola/Cyan Neon) -->
         <div class="comic-viewer-box p-3 sm:p-6" id="main-viewer-box">
-            <div class="relative w-full flex items-center justify-center min-h-[420px] sm:min-h-[620px] bg-[#111]">
-                <img id="comic-main-img" src="assets/comics/capitolo-1/copertina.jpg" alt="Tavola Fumetto" class="comic-main-image fade-in">
+            <!-- Overlay Touch sui lati per navigazione rapida con i pollici -->
+            <button class="comic-touch-overlay comic-touch-left" onclick="prevComicPage()" aria-label="Tavola Precedente" title="Tavola Precedente">
+                <span class="comic-touch-indicator"><i class="fa-solid fa-chevron-left"></i></span>
+            </button>
+            <button class="comic-touch-overlay comic-touch-right" onclick="nextComicPage()" aria-label="Tavola Successiva" title="Tavola Successiva">
+                <span class="comic-touch-indicator"><i class="fa-solid fa-chevron-right"></i></span>
+            </button>
+
+            <div class="relative w-full flex items-center justify-center min-h-[280px] sm:min-h-[620px] bg-[#111]">
+                <img id="comic-main-img" src="assets/copertina.jpg" alt="Tavola Fumetto - Copertina Ufficiale" class="comic-main-image fade-in">
             </div>
         </div>
 
         <!-- Controlli di Navigazione Principali -->
-        <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+        <div class="comic-nav-controls mt-6 flex flex-wrap items-center justify-between gap-4">
             <button id="btn-prev-page" onclick="prevComicPage()" class="comic-nav-btn flex-1 sm:flex-initial">
                 <i class="fa-solid fa-arrow-left"></i> ← Tavola Precedente
             </button>
@@ -178,29 +200,31 @@
 
     <!-- LOGICA DEL COMIC READER -->
     <script>
+        // Configurazione delle 17 Tavole del Fumetto da assets/ (Immagini Intere)
         const comicPages = [
-            { num: 1, title: "COPERTINA UFFICIALE", subtitle: "Volume 01 • Episodio 1", src: "assets/comics/capitolo-1/copertina.jpg" },
-            { num: 2, title: "TAVOLA 1", subtitle: "L'Inizio dell'Anomalia", src: "assets/comics/capitolo-1/vin1.jpg" },
-            { num: 3, title: "TAVOLA 2", subtitle: "Segnali dall'Oscurità", src: "assets/comics/capitolo-1/vin2.jpg" },
-            { num: 4, title: "TAVOLA 3", subtitle: "Nel Cuore dell'Ombra", src: "assets/comics/capitolo-1/vin3.jpg" },
-            { num: 5, title: "TAVOLA 4", subtitle: "La Presenza", src: "assets/comics/capitolo-1/vin4.jpg" },
-            { num: 6, title: "TAVOLA 5", subtitle: "Il Contatto", src: "assets/comics/capitolo-1/vin5.jpg" },
-            { num: 7, title: "TAVOLA 6", subtitle: "Reazione Improvvisa", src: "assets/comics/capitolo-1/vin6.jpg" },
-            { num: 8, title: "TAVOLA 7", subtitle: "Punto di Rottura", src: "assets/comics/capitolo-1/vin7.jpg" },
-            { num: 9, title: "TAVOLA 8", subtitle: "Lo Scontro Si Accende", src: "assets/comics/capitolo-1/vin8.jpg" },
-            { num: 10, title: "TAVOLA 9", subtitle: "Forza Sovrumana", src: "assets/comics/capitolo-1/vin9.jpg" },
-            { num: 11, title: "TAVOLA 10", subtitle: "Assalto Tattico", src: "assets/comics/capitolo-1/vin10.jpg" },
-            { num: 12, title: "TAVOLA 11", subtitle: "Mossa Decisiva", src: "assets/comics/capitolo-1/vin11.jpg" },
-            { num: 13, title: "TAVOLA 12", subtitle: "Potenza Scatenata", src: "assets/comics/capitolo-1/vin12.jpg" },
-            { num: 14, title: "TAVOLA 13", subtitle: "Oltre il Limite", src: "assets/comics/capitolo-1/vin13.jpg" },
-            { num: 15, title: "TAVOLA 14", subtitle: "Fronte Comune", src: "assets/comics/capitolo-1/vin14.jpg" },
-            { num: 16, title: "TAVOLA 15", subtitle: "L'Impatto Finale", src: "assets/comics/capitolo-1/vin15.jpg" },
-            { num: 17, title: "TAVOLA 16", subtitle: "Epilogo & Rivelazione", src: "assets/comics/capitolo-1/vin16.jpg" }
+            { num: 1, title: "COPERTINA UFFICIALE", subtitle: "Volume 01 • Episodio 1", src: "assets/copertina.jpg" },
+            { num: 2, title: "TAVOLA 1", subtitle: "L'Inizio dell'Anomalia", src: "assets/tavola1.jpg" },
+            { num: 3, title: "TAVOLA 2", subtitle: "Segnali dall'Oscurità", src: "assets/tavola2.jpg" },
+            { num: 4, title: "TAVOLA 3", subtitle: "Nel Cuore dell'Ombra", src: "assets/tavola3.jpg" },
+            { num: 5, title: "TAVOLA 4", subtitle: "La Presenza", src: "assets/tavola4.jpg" },
+            { num: 6, title: "TAVOLA 5", subtitle: "Il Contatto", src: "assets/tavola5.jpg" },
+            { num: 7, title: "TAVOLA 6", subtitle: "Reazione Improvvisa", src: "assets/tavola6.jpg" },
+            { num: 8, title: "TAVOLA 7", subtitle: "Punto di Rottura", src: "assets/tavola7.jpg" },
+            { num: 9, title: "TAVOLA 8", subtitle: "Lo Scontro Si Accende", src: "assets/tavola8.jpg" },
+            { num: 10, title: "TAVOLA 9", subtitle: "Forza Sovrumana", src: "assets/tavola9.jpg" },
+            { num: 11, title: "TAVOLA 10", subtitle: "Assalto Tattico", src: "assets/tavola10.jpg" },
+            { num: 12, title: "TAVOLA 11", subtitle: "Mossa Decisiva", src: "assets/tavola11.jpg" },
+            { num: 13, title: "TAVOLA 12", subtitle: "Potenza Scatenata", src: "assets/tavola12.jpg" },
+            { num: 14, title: "TAVOLA 13", subtitle: "Oltre il Limite", src: "assets/tavola13.jpg" },
+            { num: 15, title: "TAVOLA 14", subtitle: "Fronte Comune", src: "assets/tavola14.jpg" },
+            { num: 16, title: "TAVOLA 15", subtitle: "L'Impatto Finale", src: "assets/tavola15.jpg" },
+            { num: 17, title: "TAVOLA 16", subtitle: "Epilogo & Rivelazione", src: "assets/tavola16.jpg" }
         ];
 
         let currentComicPage = 1;
         const totalComicPages = comicPages.length;
 
+        // Inizializzazione Galleria Miniature
         function renderThumbnails() {
             const strip = document.getElementById('comic-thumbnails-strip');
             if (!strip) return;
@@ -211,7 +235,7 @@
                 card.className = `comic-thumb-card ${page.num === currentComicPage ? 'active' : ''}`;
                 card.id = `thumb-page-${page.num}`;
                 card.title = `${page.title} - ${page.subtitle}`;
-                card.onclick = () => showComicPage(page.num);
+                card.onclick = () => selectComicThumbnail(page.num);
 
                 card.innerHTML = `
                     <img src="${page.src}" alt="${page.title}" loading="lazy">
@@ -221,6 +245,31 @@
             });
         }
 
+        // Selezione da Miniatura: mostra l'immagine intera e riporta la visuale sul lettore principale
+        function selectComicThumbnail(pageNum) {
+            showComicPage(pageNum);
+            const viewer = document.getElementById('main-viewer-box');
+            if (viewer) {
+                const rect = viewer.getBoundingClientRect();
+                // Se il visualizzatore dell'immagine intera è fuori dal campo visivo, lo riposiziona al centro
+                if (rect.top < 0 || rect.bottom > window.innerHeight) {
+                    viewer.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            }
+        }
+
+        // Mantiene l'immagine intera centrata/visibile durante la navigazione
+        function ensureMainViewerVisible() {
+            const viewer = document.getElementById('main-viewer-box');
+            if (!viewer) return;
+            const rect = viewer.getBoundingClientRect();
+            // Se la sommità della tavola è scrollata oltre il bordo superiore o il viewer è coperto
+            if (rect.top < -50 || rect.bottom < 150) {
+                viewer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        }
+
+        // Visualizzazione dell'Immagine Intera della Tavola Selezionata
         function showComicPage(pageNum) {
             if (pageNum < 1 || pageNum > totalComicPages) return;
             currentComicPage = pageNum;
@@ -251,26 +300,35 @@
             if (titleElem) titleElem.innerText = page.title;
             if (subElem) subElem.innerText = page.subtitle;
 
+            // Aggiorna stato pulsanti di navigazione
             if (prevBtn) prevBtn.disabled = (pageNum === 1);
             if (nextBtn) nextBtn.disabled = (pageNum === totalComicPages);
 
+            // Aggiorna miniatura attiva ed esegue lo scorrimento SOLO interno alla strip
+            // NON invoca scrollIntoView() per evitare qualsiasi salto o scroll della pagina verso la miniatura
             document.querySelectorAll('.comic-thumb-card').forEach(card => card.classList.remove('active'));
             const activeThumb = document.getElementById(`thumb-page-${pageNum}`);
+            const strip = document.getElementById('comic-thumbnails-strip');
             if (activeThumb) {
                 activeThumb.classList.add('active');
-                activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                if (strip) {
+                    const scrollTarget = activeThumb.offsetLeft - (strip.offsetWidth / 2) + (activeThumb.offsetWidth / 2);
+                    strip.scrollTo({ left: scrollTarget, behavior: 'smooth' });
+                }
             }
         }
 
         function prevComicPage() {
             if (currentComicPage > 1) {
                 showComicPage(currentComicPage - 1);
+                ensureMainViewerVisible();
             }
         }
 
         function nextComicPage() {
             if (currentComicPage < totalComicPages) {
                 showComicPage(currentComicPage + 1);
+                ensureMainViewerVisible();
             }
         }
 
@@ -298,6 +356,42 @@
                 prevComicPage();
             }
         });
+
+        // Supporto Touch Swipe (Mobile UX: swipe a sinistra = avanti, swipe a destra = indietro)
+        (function initTouchSwipe() {
+            const viewer = document.getElementById('main-viewer-box');
+            if (!viewer) return;
+
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            const minSwipeDistance = 40;
+
+            viewer.addEventListener('touchstart', function(e) {
+                if (!e.changedTouches || e.changedTouches.length === 0) return;
+                touchStartX = e.changedTouches[0].clientX;
+                touchStartY = e.changedTouches[0].clientY;
+            }, { passive: true });
+
+            viewer.addEventListener('touchend', function(e) {
+                if (!e.changedTouches || e.changedTouches.length === 0) return;
+                touchEndX = e.changedTouches[0].clientX;
+                touchEndY = e.changedTouches[0].clientY;
+
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = touchEndY - touchStartY;
+
+                // Gestisci lo swipe se orizzontale e supera la soglia minima
+                if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > minSwipeDistance) {
+                    if (deltaX < 0) {
+                        nextComicPage(); // Swipe a sinistra: tavola successiva
+                    } else {
+                        prevComicPage(); // Swipe a destra: tavola precedente
+                    }
+                }
+            }, { passive: true });
+        })();
 
         window.onload = function() {
             renderThumbnails();

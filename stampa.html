@@ -2,7 +2,7 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Valpocomics - Versione Stampabile Manga A4</title>
     
     <!-- Google Fonts -->
@@ -137,6 +137,44 @@
         .btn-back:hover {
             color: #fff;
             border-color: #fff;
+        }
+
+        /* Responsive Toolbar & Preview su Mobile */
+        @media screen and (max-width: 768px) {
+            .print-toolbar {
+                padding: 10px 14px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 10px;
+            }
+            .toolbar-brand {
+                justify-content: center;
+                font-size: 1rem;
+            }
+            .toolbar-actions {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                width: 100%;
+            }
+            .btn-action {
+                flex: 1 1 auto;
+                justify-content: center;
+                font-size: 0.78rem;
+                padding: 8px 12px;
+                min-height: 44px;
+                white-space: nowrap;
+            }
+            .manga-print-container {
+                margin: 10px auto;
+                max-width: 100%;
+                gap: 10mm;
+            }
+            .a4-sheet {
+                width: 100%;
+                min-height: auto;
+                padding: 5mm;
+            }
         }
 
         /* 3. Contenitore Fogli A4 (Simulazione Realistica a Schermo) */
