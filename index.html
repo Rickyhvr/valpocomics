@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Dark Comic Custom Styles -->
+    <link rel="stylesheet" href="style.css">
     
     <script>
         tailwind.config = {
@@ -343,62 +345,85 @@
         </div>
     </div>
 
-    <!-- COMIC READER INTEGRATO -->
-    <section id="reader" class="py-24 bg-black border-t border-gray-900 relative">
+    <!-- COMIC READER INTERATTIVO (DARK COMIC) -->
+    <section id="reader" class="py-20 bg-black border-t border-gray-900 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10">
-                <h2 class="text-xs font-tech text-huntrix-crimson tracking-widest uppercase font-bold mb-2">● MANGA READER INTEGRATO</h2>
-                <h3 class="font-tech text-4xl sm:text-5xl font-black text-white">ANTEPRIMA CAPITOLO 1</h3>
-                <p class="text-gray-400 mt-2 text-sm">
-                    Sfoglia l'anteprima direttamente qui sotto oppure seleziona la modalità di lettura preferita.
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900 border border-huntrix-crimson/50 text-huntrix-crimson text-xs font-tech uppercase tracking-widest mb-3 shadow-neon-crimson">
+                    <i class="fa-solid fa-book-open text-yellow-400"></i> COMIC READER INTERATTIVO
+                </div>
+                <h3 class="font-tech text-4xl sm:text-5xl font-black text-white">LETTURA TAVOLE ONLINE</h3>
+                <p class="text-gray-400 mt-2 text-sm sm:text-base">
+                    Sfoglia le tavole in alta definizione con i pulsanti, le frecce della tastiera <kbd class="px-2 py-0.5 bg-gray-800 text-huntrix-cyan border border-gray-700 rounded text-xs">←</kbd> <kbd class="px-2 py-0.5 bg-gray-800 text-huntrix-cyan border border-gray-700 rounded text-xs">→</kbd> o cliccando sulle miniature sottostanti.
                 </p>
             </div>
 
-            <!-- Reader Controls Toolbar -->
+            <!-- Header Toolbar: Titolo Tavola + Contatore Pagine + Schermo Intero -->
             <div class="bg-huntrix-card border border-gray-800 rounded-t-xl p-4 flex flex-wrap items-center justify-between gap-4">
                 <div class="flex items-center gap-3">
-                    <span id="reader-chapter-title" class="font-tech text-sm text-huntrix-cyan font-bold"><i class="fa-solid fa-book-open mr-1"></i> CAP. 1: "L'Anomalia"</span>
-                    <span class="text-xs text-gray-400">| Tavola <span id="current-page-num" class="text-white font-bold">1</span> di <span id="total-pages-num" class="text-white font-bold">17</span></span>
+                    <span id="reader-page-badge" class="comic-page-badge">
+                        <i class="fa-solid fa-bolt text-yellow-400"></i>
+                        <span id="current-page-title">COPERTINA UFFICIALE</span>
+                    </span>
+                    <span id="current-page-subtitle" class="text-xs text-gray-400 font-tech hidden sm:inline">Capitolo 1: L'Anomalia</span>
                 </div>
 
-                <!-- Mode Switcher & Tools -->
-                <div class="flex items-center gap-2 font-tech text-xs">
-                    <button onclick="setReaderMode('webtoon')" id="mode-webtoon-btn" class="px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5">
-                        <i class="fa-solid fa-arrows-up-down"></i> Webtoon (Scroll)
-                    </button>
-                    <button onclick="setReaderMode('paged')" id="mode-paged-btn" class="px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-lines"></i> Paginato
-                    </button>
-                </div>
-            </div>
-
-            <!-- Reader Canvas Container -->
-            <div id="reader-view-box" class="bg-gray-950 border border-gray-800 min-h-[500px] flex justify-center items-start p-4 relative overflow-y-auto max-h-[850px]">
-                
-                <!-- Webtoon Mode Display (Vertical Cards Container) -->
-                <div id="webtoon-container" class="w-full max-w-3xl space-y-6">
-                    <!-- Popolato dinamicamente da initReader() -->
-                </div>
-
-                <!-- Paged Mode Display (Single Page with Prev/Next buttons) -->
-                <div id="paged-container" class="hidden w-full max-w-3xl flex flex-col items-center">
-                    <div id="paged-single-content" class="w-full">
-                        <!-- Popolato dinamicamente in modalità paginata -->
+                <div class="flex items-center gap-3">
+                    <!-- Contatore Pagine "Pagina X di Y" -->
+                    <div class="comic-counter-box text-sm">
+                        <span>PAGINA</span>
+                        <span id="current-page-num" class="text-white font-bold">1</span>
+                        <span class="counter-total">di <span id="total-pages-num">17</span></span>
                     </div>
+
+                    <!-- Tasto Schermo Intero -->
+                    <button onclick="toggleFullscreenReader()" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Schermo Intero">
+                        <i class="fa-solid fa-expand"></i>
+                    </button>
+                    <!-- Link Pagina Dedicata Reader -->
+                    <a href="reader.html" class="px-3 py-2 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white text-xs font-tech flex items-center gap-1.5 transition-all shadow-sm" title="Apri Reader a Pagina Intera">
+                        <i class="fa-solid fa-arrow-up-right-from-square text-huntrix-cyan"></i>
+                        <span class="hidden sm:inline">Pagina Intera</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Visualizzatore Principale Centrale (Sfondo scuro #111, Bordo rosso #e50914) -->
+            <div class="comic-viewer-box p-3 sm:p-6" id="main-viewer-box">
+                <div class="relative w-full flex items-center justify-center min-h-[420px] sm:min-h-[580px] bg-[#111]">
+                    <img id="comic-main-img" src="assets/comics/capitolo-1/copertina.jpg" alt="Tavola Fumetto" class="comic-main-image fade-in">
+                </div>
+            </div>
+
+            <!-- Controlli di Navigazione Principali (Pulsanti Precedente / Successiva) -->
+            <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+                <button id="btn-prev-page" onclick="prevComicPage()" class="comic-nav-btn flex-1 sm:flex-initial">
+                    <i class="fa-solid fa-arrow-left"></i> ← Tavola Precedente
+                </button>
+
+                <div class="comic-shortcut-hint hidden md:flex">
+                    <i class="fa-regular fa-keyboard text-huntrix-cyan"></i>
+                    <span>Usa le frecce <kbd>←</kbd> <kbd>→</kbd> della tastiera per cambiare tavola</span>
                 </div>
 
+                <button id="btn-next-page" onclick="nextComicPage()" class="comic-nav-btn flex-1 sm:flex-initial">
+                    Tavola Successiva → <i class="fa-solid fa-arrow-right"></i>
+                </button>
             </div>
 
-            <!-- Bottom Navigation Bar for Reader (Paged Mode) -->
-            <div id="paged-nav-bar" class="hidden bg-huntrix-card border-t-0 border border-gray-800 rounded-b-xl p-4 flex items-center justify-between">
-                <button onclick="prevComicPage()" class="px-5 py-2.5 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all flex items-center gap-2">
-                    <i class="fa-solid fa-chevron-left"></i> PRECEDENTE
-                </button>
-                <span class="text-xs font-tech text-gray-400">TAVOLA <span id="paged-page-current" class="text-white font-bold">1</span> / <span id="paged-page-total" class="text-white font-bold">17</span></span>
-                <button onclick="nextComicPage()" class="px-5 py-2.5 bg-gray-800 hover:bg-huntrix-cyan hover:text-black rounded font-tech text-xs font-bold transition-all flex items-center gap-2">
-                    SUCCESSIVA <i class="fa-solid fa-chevron-right"></i>
-                </button>
+            <!-- Vista Griglia / Galleria Miniature (Thumbnails) -->
+            <div class="comic-thumbs-container">
+                <div class="comic-thumbs-header">
+                    <span><strong><i class="fa-solid fa-images mr-1"></i> Galleria Miniature</strong> • 17 Tavole Disponibili</span>
+                    <span class="text-xs text-gray-500 font-mono">Clicca su una miniatura per andare all'istante alla pagina</span>
+                </div>
+
+                <!-- Striscia Miniature a Scorrimento Orizzontale Fluido -->
+                <div id="comic-thumbnails-strip" class="comic-thumbs-scroll">
+                    <!-- Popolato dinamicamente via JS con tutte le tavole -->
+                </div>
             </div>
+
         </div>
     </section>
 
@@ -672,166 +697,147 @@
             modal.classList.remove('flex');
         }
 
-        // Configurazione Capitoli & Vignette del Fumetto (16 Tavole + Copertina)
-        const comicChapters = {
-            1: {
-                id: 1,
-                title: "Capitolo 1: L'Anomalia",
-                basePath: "assets/comics/capitolo-1/",
-                pages: [
-                    { file: "copertina.jpg", badge: "COPERTINA UFFICIALE", title: "Copertina", subtitle: "Valpocomics • Episodio 1" },
-                    { file: "vin1.jpg", badge: "TAVOLA 1", title: "L'Inizio dell'Anomalia", subtitle: "Neo-Verona, Notte Fonda" },
-                    { file: "vin2.jpg", badge: "TAVOLA 2", title: "Segnali dall'Oscurità", subtitle: "Sospetto e Tensione" },
-                    { file: "vin3.jpg", badge: "TAVOLA 3", title: "Nel Cuore dell'Ombra", subtitle: "Tracce Clandestine" },
-                    { file: "vin4.jpg", badge: "TAVOLA 4", title: "La Presenza", subtitle: "Qualcuno ci osserva" },
-                    { file: "vin5.jpg", badge: "TAVOLA 5", title: "Il Contatto", subtitle: "Primo Ingaggio" },
-                    { file: "vin6.jpg", badge: "TAVOLA 6", title: "Reazione Improvvisa", subtitle: "Riflessi Lampo" },
-                    { file: "vin7.jpg", badge: "TAVOLA 7", title: "Punto di Rottura", subtitle: "La Barriera si Incrina" },
-                    { file: "vin8.jpg", badge: "TAVOLA 8", title: "Lo Scontro Si Accende", subtitle: "Lame ed Energia" },
-                    { file: "vin9.jpg", badge: "TAVOLA 9", title: "Forza Sovrumana", subtitle: "Impatto Violento" },
-                    { file: "vin10.jpg", badge: "TAVOLA 10", title: "Assalto Tattico", subtitle: "Coordinazione Perfetta" },
-                    { file: "vin11.jpg", badge: "TAVOLA 11", title: "Mossa Decisiva", subtitle: "Nessuna Esitazione" },
-                    { file: "vin12.jpg", badge: "TAVOLA 12", title: "Potenza Scatenata", subtitle: "Sovraccarico Energetico" },
-                    { file: "vin13.jpg", badge: "TAVOLA 13", title: "Oltre il Limite", subtitle: "Resistenza Estrema" },
-                    { file: "vin14.jpg", badge: "TAVOLA 14", title: "Fronte Comune", subtitle: "Insieme Fino alla Fine" },
-                    { file: "vin15.jpg", badge: "TAVOLA 15", title: "L'Impatto Finale", subtitle: "Il Colpo di Grazia" },
-                    { file: "vin16.jpg", badge: "TAVOLA 16", title: "Epilogo & Rivelazione", subtitle: "Continua nel Prossimo Capitolo..." }
-                ]
-            }
-        };
+        // Configurazione delle 17 Tavole del Fumetto da assets/
+        const comicPages = [
+            { num: 1, title: "COPERTINA UFFICIALE", subtitle: "Volume 01 • Episodio 1", src: "assets/comics/capitolo-1/copertina.jpg" },
+            { num: 2, title: "TAVOLA 1", subtitle: "L'Inizio dell'Anomalia", src: "assets/comics/capitolo-1/vin1.jpg" },
+            { num: 3, title: "TAVOLA 2", subtitle: "Segnali dall'Oscurità", src: "assets/comics/capitolo-1/vin2.jpg" },
+            { num: 4, title: "TAVOLA 3", subtitle: "Nel Cuore dell'Ombra", src: "assets/comics/capitolo-1/vin3.jpg" },
+            { num: 5, title: "TAVOLA 4", subtitle: "La Presenza", src: "assets/comics/capitolo-1/vin4.jpg" },
+            { num: 6, title: "TAVOLA 5", subtitle: "Il Contatto", src: "assets/comics/capitolo-1/vin5.jpg" },
+            { num: 7, title: "TAVOLA 6", subtitle: "Reazione Improvvisa", src: "assets/comics/capitolo-1/vin6.jpg" },
+            { num: 8, title: "TAVOLA 7", subtitle: "Punto di Rottura", src: "assets/comics/capitolo-1/vin7.jpg" },
+            { num: 9, title: "TAVOLA 8", subtitle: "Lo Scontro Si Accende", src: "assets/comics/capitolo-1/vin8.jpg" },
+            { num: 10, title: "TAVOLA 9", subtitle: "Forza Sovrumana", src: "assets/comics/capitolo-1/vin9.jpg" },
+            { num: 11, title: "TAVOLA 10", subtitle: "Assalto Tattico", src: "assets/comics/capitolo-1/vin10.jpg" },
+            { num: 12, title: "TAVOLA 11", subtitle: "Mossa Decisiva", src: "assets/comics/capitolo-1/vin11.jpg" },
+            { num: 13, title: "TAVOLA 12", subtitle: "Potenza Scatenata", src: "assets/comics/capitolo-1/vin12.jpg" },
+            { num: 14, title: "TAVOLA 13", subtitle: "Oltre il Limite", src: "assets/comics/capitolo-1/vin13.jpg" },
+            { num: 15, title: "TAVOLA 14", subtitle: "Fronte Comune", src: "assets/comics/capitolo-1/vin14.jpg" },
+            { num: 16, title: "TAVOLA 15", subtitle: "L'Impatto Finale", src: "assets/comics/capitolo-1/vin15.jpg" },
+            { num: 17, title: "TAVOLA 16", subtitle: "Epilogo & Rivelazione", src: "assets/comics/capitolo-1/vin16.jpg" }
+        ];
 
-        // Reader Mode Switching (Webtoon vs Paginato)
-        let currentChapter = 1;
-        let currentPage = 1;
-        let currentMode = 'webtoon';
+        let currentComicPage = 1;
+        const totalComicPages = comicPages.length;
 
-        function initReader(chapNum = 1) {
-            currentChapter = chapNum;
-            const chapter = comicChapters[chapNum] || comicChapters[1];
-            currentPage = 1;
-            
-            const titleElem = document.getElementById('reader-chapter-title');
-            if (titleElem) {
-                titleElem.innerHTML = `<i class="fa-solid fa-book-open mr-1"></i> ${chapter.title}`;
-            }
+        // Inizializzazione Galleria Miniature
+        function renderThumbnails() {
+            const strip = document.getElementById('comic-thumbnails-strip');
+            if (!strip) return;
+            strip.innerHTML = '';
 
-            const total = chapter.pages.length;
-            const totalElem = document.getElementById('total-pages-num');
-            if (totalElem) totalElem.innerText = total;
+            comicPages.forEach((page) => {
+                const card = document.createElement('div');
+                card.className = `comic-thumb-card ${page.num === currentComicPage ? 'active' : ''}`;
+                card.id = `thumb-page-${page.num}`;
+                card.title = `${page.title} - ${page.subtitle}`;
+                card.onclick = () => showComicPage(page.num);
 
-            const pagedTotalElem = document.getElementById('paged-page-total');
-            if (pagedTotalElem) pagedTotalElem.innerText = total;
-
-            // Popola modalità Webtoon (tutte le 16 vignette + copertina a scorrimento verticale)
-            const webtoonContainer = document.getElementById('webtoon-container');
-            webtoonContainer.innerHTML = '';
-
-            chapter.pages.forEach((page, index) => {
-                const panel = document.createElement('div');
-                panel.className = 'comic-page-panel bg-huntrix-card border border-gray-800 hover:border-huntrix-cyan/40 rounded-xl p-3 sm:p-5 shadow-2xl transition-all relative text-center';
-                panel.id = `webtoon-page-${index + 1}`;
-                panel.innerHTML = `
-                    <div class="text-xs font-tech text-huntrix-cyan mb-2.5 flex items-center justify-between px-1">
-                        <span class="flex items-center gap-1.5 font-bold"><i class="fa-solid fa-bolt text-yellow-400"></i> ${page.badge}</span>
-                        <span class="text-gray-400 font-mono text-[11px]">${page.subtitle}</span>
-                    </div>
-                    <div class="rounded-lg overflow-hidden border border-gray-800 shadow-neon-cyan/20 bg-black">
-                        <img src="${chapter.basePath}${page.file}" alt="${page.title}" loading="lazy" class="w-full h-auto object-cover rounded-md block">
-                    </div>
+                card.innerHTML = `
+                    <img src="${page.src}" alt="${page.title}" loading="lazy">
+                    <span class="comic-thumb-badge">${page.num}</span>
                 `;
-                webtoonContainer.appendChild(panel);
+                strip.appendChild(card);
             });
-
-            // Prepara anche la prima pagina per la modalità paginata
-            renderPagedContent();
         }
 
-        function setReaderMode(mode) {
-            currentMode = mode;
-            const webtoonContainer = document.getElementById('webtoon-container');
-            const pagedContainer = document.getElementById('paged-container');
-            const pagedNavBar = document.getElementById('paged-nav-bar');
-            
-            const btnWebtoon = document.getElementById('mode-webtoon-btn');
-            const btnPaged = document.getElementById('mode-paged-btn');
+        // Visualizzazione della Tavola Selezionata
+        function showComicPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalComicPages) return;
+            currentComicPage = pageNum;
+            const page = comicPages[pageNum - 1];
 
-            if(mode === 'webtoon') {
-                webtoonContainer.classList.remove('hidden');
-                pagedContainer.classList.add('hidden');
-                pagedNavBar.classList.add('hidden');
+            const mainImg = document.getElementById('comic-main-img');
+            const pageNumElem = document.getElementById('current-page-num');
+            const totalNumElem = document.getElementById('total-pages-num');
+            const titleElem = document.getElementById('current-page-title');
+            const subElem = document.getElementById('current-page-subtitle');
+            const prevBtn = document.getElementById('btn-prev-page');
+            const nextBtn = document.getElementById('btn-next-page');
 
-                btnWebtoon.className = 'px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5';
-                btnPaged.className = 'px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5';
-            } else {
-                webtoonContainer.classList.add('hidden');
-                pagedContainer.classList.remove('hidden');
-                pagedNavBar.classList.remove('hidden');
-
-                btnPaged.className = 'px-3.5 py-1.5 rounded bg-huntrix-purple text-white font-bold transition-all flex items-center gap-1.5';
-                btnWebtoon.className = 'px-3.5 py-1.5 rounded bg-gray-800 text-gray-300 hover:bg-gray-700 transition-all flex items-center gap-1.5';
+            if (mainImg) {
+                mainImg.classList.remove('fade-in');
+                mainImg.classList.add('fade-out');
                 
-                renderPagedContent();
+                setTimeout(() => {
+                    mainImg.src = page.src;
+                    mainImg.alt = `${page.title} - ${page.subtitle}`;
+                    mainImg.classList.remove('fade-out');
+                    mainImg.classList.add('fade-in');
+                }, 100);
             }
-        }
 
-        function renderPagedContent() {
-            const chapter = comicChapters[currentChapter] || comicChapters[1];
-            const page = chapter.pages[currentPage - 1];
-            if (!page) return;
+            if (pageNumElem) pageNumElem.innerText = page.num;
+            if (totalNumElem) totalNumElem.innerText = totalComicPages;
+            if (titleElem) titleElem.innerText = page.title;
+            if (subElem) subElem.innerText = page.subtitle;
 
-            const container = document.getElementById('paged-single-content');
-            container.innerHTML = `
-                <div class="bg-huntrix-card border border-gray-800 rounded-xl p-4 sm:p-6 shadow-2xl text-center">
-                    <div class="text-xs font-tech text-huntrix-cyan mb-3 flex items-center justify-between px-2">
-                        <span class="font-bold flex items-center gap-1.5"><i class="fa-solid fa-bolt text-yellow-400"></i> ${page.badge} - ${page.title}</span>
-                        <span class="text-gray-400 font-mono">${page.subtitle}</span>
-                    </div>
-                    <div class="rounded-lg overflow-hidden border border-gray-800 bg-black shadow-neon-cyan/20">
-                        <img src="${chapter.basePath}${page.file}" alt="${page.title}" class="w-full h-auto max-h-[720px] object-contain mx-auto rounded-md">
-                    </div>
-                </div>
-            `;
+            // Aggiorna stato pulsanti di navigazione
+            if (prevBtn) prevBtn.disabled = (pageNum === 1);
+            if (nextBtn) nextBtn.disabled = (pageNum === totalComicPages);
 
-            document.getElementById('current-page-num').innerText = currentPage;
-            document.getElementById('paged-page-current').innerText = currentPage;
-            const total = chapter.pages.length;
-            document.getElementById('total-pages-num').innerText = total;
-            const pagedTotalElem = document.getElementById('paged-page-total');
-            if (pagedTotalElem) pagedTotalElem.innerText = total;
-        }
-
-        function nextComicPage() {
-            const chapter = comicChapters[currentChapter] || comicChapters[1];
-            if(currentPage < chapter.pages.length) {
-                currentPage++;
-                renderPagedContent();
+            // Aggiorna miniatura attiva ed esegui auto-scroll
+            document.querySelectorAll('.comic-thumb-card').forEach(card => card.classList.remove('active'));
+            const activeThumb = document.getElementById(`thumb-page-${pageNum}`);
+            if (activeThumb) {
+                activeThumb.classList.add('active');
+                activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
             }
         }
 
         function prevComicPage() {
-            if(currentPage > 1) {
-                currentPage--;
-                renderPagedContent();
+            if (currentComicPage > 1) {
+                showComicPage(currentComicPage - 1);
             }
         }
 
-        function openReader(chapNum = 1) {
-            initReader(chapNum);
-            document.getElementById('reader').scrollIntoView({ behavior: 'smooth' });
+        function nextComicPage() {
+            if (currentComicPage < totalComicPages) {
+                showComicPage(currentComicPage + 1);
+            }
         }
 
-        // Navigazione da tastiera per la modalità paginata (frecce sinistra / destra)
+        function openReader(pageNum = 1) {
+            showComicPage(pageNum);
+            const readerElem = document.getElementById('reader');
+            if (readerElem) {
+                readerElem.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function toggleFullscreenReader() {
+            const viewer = document.getElementById('main-viewer-box');
+            if (!viewer) return;
+
+            if (!document.fullscreenElement) {
+                viewer.requestFullscreen().catch(err => {
+                    console.warn(`Errore schermo intero: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        // Navigazione da tastiera con le frecce Sinistra (←) e Destra (→)
         window.addEventListener('keydown', (e) => {
-            if (currentMode === 'paged') {
-                if (e.key === 'ArrowRight') nextComicPage();
-                if (e.key === 'ArrowLeft') prevComicPage();
+            // Evita collisioni se l'utente sta scrivendo in un input
+            if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
+
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextComicPage();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevComicPage();
             }
         });
 
         // Inizializzazione al caricamento pagina
         window.onload = function() {
             renderCharacters(characters);
-            initReader(1);
+            renderThumbnails();
+            showComicPage(1);
         };
     </script>
 </body>

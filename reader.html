@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valpocomics - Comic Reader Interattivo | Episodio 1</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Custom Dark Comic Styles -->
+    <link rel="stylesheet" href="style.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        comic: ['Bangers', 'cursive'],
+                        tech: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        huntrix: {
+                            dark: '#0a0a0f',
+                            card: '#12131e',
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            crimson: '#f43f5e',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.4)',
+                        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.4)',
+                        'neon-crimson': '0 0 20px rgba(244, 63, 94, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-huntrix-dark text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-huntrix-cyan selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-huntrix-dark/95 backdrop-blur-md border-b border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <span class="font-tech text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-huntrix-cyan via-white to-huntrix-crimson">
+                        VALPOCOMICS
+                    </span>
+                    <span class="text-xs font-tech bg-huntrix-purple/20 text-huntrix-purple border border-huntrix-purple/40 px-2 py-0.5 rounded">READER</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-7 text-sm font-tech uppercase tracking-wider font-semibold">
+                    <a href="index.html" class="hover:text-huntrix-cyan transition-colors">Home</a>
+                    <a href="index.html#storia" class="hover:text-huntrix-cyan transition-colors">La Storia</a>
+                    <a href="index.html#personaggi" class="hover:text-huntrix-cyan transition-colors">Personaggi</a>
+                    <a href="index.html#capitoli" class="hover:text-huntrix-cyan transition-colors">Capitoli</a>
+                    <a href="gioco.html" class="text-white hover:text-huntrix-cyan transition-all px-3 py-1.5 rounded-lg bg-huntrix-crimson/20 border border-huntrix-crimson/60 shadow-neon-crimson flex items-center gap-1.5">
+                        <i class="fa-solid fa-gamepad text-huntrix-crimson"></i> Mini Gioco
+                    </a>
+                </div>
+
+                <!-- CTA Torna alla Home -->
+                <div class="hidden md:block">
+                    <a href="index.html" class="inline-block bg-gray-900 hover:bg-gray-800 text-huntrix-cyan border border-huntrix-cyan/50 font-tech font-bold px-5 py-2 rounded text-xs transition-all shadow-neon-cyan">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> TORNA ALLA HOME
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Button -->
+                <div class="md:hidden">
+                    <a href="index.html" class="text-huntrix-cyan p-2 text-xl">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN READER CONTAINER -->
+    <main class="flex-grow pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto w-full">
+        
+        <!-- Header -->
+        <div class="text-center mb-8">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900 border border-huntrix-crimson/50 text-huntrix-crimson text-xs font-tech uppercase tracking-widest mb-3 shadow-neon-crimson">
+                <i class="fa-solid fa-book-open text-yellow-400"></i> LETTORE DIGITALE UFFICIALE
+            </div>
+            <h1 class="font-comic text-4xl sm:text-6xl text-white tracking-wider">
+                CAPITOLO 1: <span class="text-transparent bg-clip-text bg-gradient-to-r from-huntrix-cyan via-white to-huntrix-crimson">L'ANOMALIA</span>
+            </h1>
+            <p class="text-gray-400 font-tech text-xs sm:text-sm max-w-xl mx-auto mt-2">
+                Usa i pulsanti sottostanti, le frecce della tastiera <kbd class="px-2 py-0.5 bg-gray-800 text-huntrix-cyan border border-gray-700 rounded text-xs">←</kbd> <kbd class="px-2 py-0.5 bg-gray-800 text-huntrix-cyan border border-gray-700 rounded text-xs">→</kbd> o clicca sulle miniature per cambiare pagina.
+            </p>
+        </div>
+
+        <!-- Toolbar: Titolo Tavola + Contatore Pagine + Schermo Intero -->
+        <div class="bg-huntrix-card border border-gray-800 rounded-t-xl p-4 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <span class="comic-page-badge">
+                    <i class="fa-solid fa-bolt text-yellow-400"></i>
+                    <span id="current-page-title">COPERTINA UFFICIALE</span>
+                </span>
+                <span id="current-page-subtitle" class="text-xs text-gray-400 font-tech hidden sm:inline">Volume 01 • Episodio 1</span>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <!-- Contatore Pagine -->
+                <div class="comic-counter-box text-sm">
+                    <span>PAGINA</span>
+                    <span id="current-page-num" class="text-white font-bold">1</span>
+                    <span class="counter-total">di <span id="total-pages-num">17</span></span>
+                </div>
+
+                <!-- Tasto Schermo Intero -->
+                <button onclick="toggleFullscreenReader()" class="w-10 h-10 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Schermo Intero">
+                    <i class="fa-solid fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Visualizzatore Principale Centrale (Sfondo #111, Bordo #e50914) -->
+        <div class="comic-viewer-box p-3 sm:p-6" id="main-viewer-box">
+            <div class="relative w-full flex items-center justify-center min-h-[420px] sm:min-h-[620px] bg-[#111]">
+                <img id="comic-main-img" src="assets/comics/capitolo-1/copertina.jpg" alt="Tavola Fumetto" class="comic-main-image fade-in">
+            </div>
+        </div>
+
+        <!-- Controlli di Navigazione Principali -->
+        <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <button id="btn-prev-page" onclick="prevComicPage()" class="comic-nav-btn flex-1 sm:flex-initial">
+                <i class="fa-solid fa-arrow-left"></i> ← Tavola Precedente
+            </button>
+
+            <div class="comic-shortcut-hint hidden md:flex">
+                <i class="fa-regular fa-keyboard text-huntrix-cyan"></i>
+                <span>Premi <kbd>←</kbd> o <kbd>→</kbd> sulla tastiera per sfogliare</span>
+            </div>
+
+            <button id="btn-next-page" onclick="nextComicPage()" class="comic-nav-btn flex-1 sm:flex-initial">
+                Tavola Successiva → <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+
+        <!-- Vista Griglia / Miniature -->
+        <div class="comic-thumbs-container">
+            <div class="comic-thumbs-header">
+                <span><strong><i class="fa-solid fa-images mr-1"></i> Galleria Miniature</strong> • Tutte le 17 Tavole</span>
+                <span class="text-xs text-gray-500 font-mono">Clicca su una miniatura per andare all'istante alla pagina</span>
+            </div>
+
+            <div id="comic-thumbnails-strip" class="comic-thumbs-scroll">
+                <!-- Popolato dinamicamente via JS -->
+            </div>
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-xs text-gray-500 font-tech">
+        <p>© 2026 Valpocomics — Comic Reader Ufficiale. Tutti i diritti riservati.</p>
+    </footer>
+
+    <!-- LOGICA DEL COMIC READER -->
+    <script>
+        const comicPages = [
+            { num: 1, title: "COPERTINA UFFICIALE", subtitle: "Volume 01 • Episodio 1", src: "assets/comics/capitolo-1/copertina.jpg" },
+            { num: 2, title: "TAVOLA 1", subtitle: "L'Inizio dell'Anomalia", src: "assets/comics/capitolo-1/vin1.jpg" },
+            { num: 3, title: "TAVOLA 2", subtitle: "Segnali dall'Oscurità", src: "assets/comics/capitolo-1/vin2.jpg" },
+            { num: 4, title: "TAVOLA 3", subtitle: "Nel Cuore dell'Ombra", src: "assets/comics/capitolo-1/vin3.jpg" },
+            { num: 5, title: "TAVOLA 4", subtitle: "La Presenza", src: "assets/comics/capitolo-1/vin4.jpg" },
+            { num: 6, title: "TAVOLA 5", subtitle: "Il Contatto", src: "assets/comics/capitolo-1/vin5.jpg" },
+            { num: 7, title: "TAVOLA 6", subtitle: "Reazione Improvvisa", src: "assets/comics/capitolo-1/vin6.jpg" },
+            { num: 8, title: "TAVOLA 7", subtitle: "Punto di Rottura", src: "assets/comics/capitolo-1/vin7.jpg" },
+            { num: 9, title: "TAVOLA 8", subtitle: "Lo Scontro Si Accende", src: "assets/comics/capitolo-1/vin8.jpg" },
+            { num: 10, title: "TAVOLA 9", subtitle: "Forza Sovrumana", src: "assets/comics/capitolo-1/vin9.jpg" },
+            { num: 11, title: "TAVOLA 10", subtitle: "Assalto Tattico", src: "assets/comics/capitolo-1/vin10.jpg" },
+            { num: 12, title: "TAVOLA 11", subtitle: "Mossa Decisiva", src: "assets/comics/capitolo-1/vin11.jpg" },
+            { num: 13, title: "TAVOLA 12", subtitle: "Potenza Scatenata", src: "assets/comics/capitolo-1/vin12.jpg" },
+            { num: 14, title: "TAVOLA 13", subtitle: "Oltre il Limite", src: "assets/comics/capitolo-1/vin13.jpg" },
+            { num: 15, title: "TAVOLA 14", subtitle: "Fronte Comune", src: "assets/comics/capitolo-1/vin14.jpg" },
+            { num: 16, title: "TAVOLA 15", subtitle: "L'Impatto Finale", src: "assets/comics/capitolo-1/vin15.jpg" },
+            { num: 17, title: "TAVOLA 16", subtitle: "Epilogo & Rivelazione", src: "assets/comics/capitolo-1/vin16.jpg" }
+        ];
+
+        let currentComicPage = 1;
+        const totalComicPages = comicPages.length;
+
+        function renderThumbnails() {
+            const strip = document.getElementById('comic-thumbnails-strip');
+            if (!strip) return;
+            strip.innerHTML = '';
+
+            comicPages.forEach((page) => {
+                const card = document.createElement('div');
+                card.className = `comic-thumb-card ${page.num === currentComicPage ? 'active' : ''}`;
+                card.id = `thumb-page-${page.num}`;
+                card.title = `${page.title} - ${page.subtitle}`;
+                card.onclick = () => showComicPage(page.num);
+
+                card.innerHTML = `
+                    <img src="${page.src}" alt="${page.title}" loading="lazy">
+                    <span class="comic-thumb-badge">${page.num}</span>
+                `;
+                strip.appendChild(card);
+            });
+        }
+
+        function showComicPage(pageNum) {
+            if (pageNum < 1 || pageNum > totalComicPages) return;
+            currentComicPage = pageNum;
+            const page = comicPages[pageNum - 1];
+
+            const mainImg = document.getElementById('comic-main-img');
+            const pageNumElem = document.getElementById('current-page-num');
+            const totalNumElem = document.getElementById('total-pages-num');
+            const titleElem = document.getElementById('current-page-title');
+            const subElem = document.getElementById('current-page-subtitle');
+            const prevBtn = document.getElementById('btn-prev-page');
+            const nextBtn = document.getElementById('btn-next-page');
+
+            if (mainImg) {
+                mainImg.classList.remove('fade-in');
+                mainImg.classList.add('fade-out');
+                
+                setTimeout(() => {
+                    mainImg.src = page.src;
+                    mainImg.alt = `${page.title} - ${page.subtitle}`;
+                    mainImg.classList.remove('fade-out');
+                    mainImg.classList.add('fade-in');
+                }, 100);
+            }
+
+            if (pageNumElem) pageNumElem.innerText = page.num;
+            if (totalNumElem) totalNumElem.innerText = totalComicPages;
+            if (titleElem) titleElem.innerText = page.title;
+            if (subElem) subElem.innerText = page.subtitle;
+
+            if (prevBtn) prevBtn.disabled = (pageNum === 1);
+            if (nextBtn) nextBtn.disabled = (pageNum === totalComicPages);
+
+            document.querySelectorAll('.comic-thumb-card').forEach(card => card.classList.remove('active'));
+            const activeThumb = document.getElementById(`thumb-page-${pageNum}`);
+            if (activeThumb) {
+                activeThumb.classList.add('active');
+                activeThumb.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            }
+        }
+
+        function prevComicPage() {
+            if (currentComicPage > 1) {
+                showComicPage(currentComicPage - 1);
+            }
+        }
+
+        function nextComicPage() {
+            if (currentComicPage < totalComicPages) {
+                showComicPage(currentComicPage + 1);
+            }
+        }
+
+        function toggleFullscreenReader() {
+            const viewer = document.getElementById('main-viewer-box');
+            if (!viewer) return;
+
+            if (!document.fullscreenElement) {
+                viewer.requestFullscreen().catch(err => {
+                    console.warn(`Errore schermo intero: ${err.message}`);
+                });
+            } else {
+                document.exitFullscreen();
+            }
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (['input', 'textarea'].includes(document.activeElement.tagName.toLowerCase())) return;
+
+            if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+                e.preventDefault();
+                nextComicPage();
+            } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+                e.preventDefault();
+                prevComicPage();
+            }
+        });
+
+        window.onload = function() {
+            renderThumbnails();
+            showComicPage(1);
+        };
+    </script>
+</body>
+</html>
