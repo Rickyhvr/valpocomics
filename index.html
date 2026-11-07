@@ -100,6 +100,9 @@
                     <a href="#personaggi" class="hover:text-huntrix-cyan transition-colors">Personaggi</a>
                     <a href="#reader" class="hover:text-huntrix-cyan transition-colors">Leggi Anteprima</a>
                     <a href="#capitoli" class="hover:text-huntrix-cyan transition-colors">Capitoli</a>
+                    <a href="stampa.html" target="_blank" class="hover:text-huntrix-cyan transition-colors flex items-center gap-1.5" title="Versione Manga A4 Stampabile">
+                        <i class="fa-solid fa-print text-huntrix-cyan"></i> Stampa A4
+                    </a>
                     <a href="gioco.html" class="text-white hover:text-huntrix-cyan transition-all px-3 py-1.5 rounded-lg bg-huntrix-crimson/20 border border-huntrix-crimson/60 shadow-neon-crimson flex items-center gap-1.5">
                         <i class="fa-solid fa-gamepad text-huntrix-crimson animate-pulse"></i> Mini Gioco
                     </a>
@@ -128,6 +131,9 @@
             <a href="#personaggi" class="mobile-link block py-2 hover:text-huntrix-cyan">Personaggi</a>
             <a href="#reader" class="mobile-link block py-2 hover:text-huntrix-cyan">Leggi Anteprima</a>
             <a href="#capitoli" class="mobile-link block py-2 hover:text-huntrix-cyan">Capitoli</a>
+            <a href="stampa.html" target="_blank" class="mobile-link block py-2 text-huntrix-cyan hover:text-white font-bold">
+                <i class="fa-solid fa-print mr-1.5 text-huntrix-cyan"></i> Versione Manga A4 (Stampa)
+            </a>
             <a href="gioco.html" class="mobile-link block py-2 text-white font-bold bg-huntrix-crimson/30 border border-huntrix-crimson rounded">
                 <i class="fa-solid fa-gamepad mr-1.5 text-huntrix-crimson"></i> Mini Gioco Arcade
             </a>
@@ -349,7 +355,7 @@
     <section id="reader" class="py-20 bg-black border-t border-gray-900 relative">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-10">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900 border border-huntrix-crimson/50 text-huntrix-crimson text-xs font-tech uppercase tracking-widest mb-3 shadow-neon-crimson">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gray-900 border border-huntrix-cyan/50 text-huntrix-cyan text-xs font-tech uppercase tracking-widest mb-3 shadow-neon-cyan">
                     <i class="fa-solid fa-book-open text-yellow-400"></i> COMIC READER INTERATTIVO
                 </div>
                 <h3 class="font-tech text-4xl sm:text-5xl font-black text-white">LETTURA TAVOLE ONLINE</h3>
@@ -385,10 +391,16 @@
                         <i class="fa-solid fa-arrow-up-right-from-square text-huntrix-cyan"></i>
                         <span class="hidden sm:inline">Pagina Intera</span>
                     </a>
+
+                    <!-- Pulsante Versione Manga A4 (Stampa) -->
+                    <a href="stampa.html" target="_blank" class="px-3.5 py-2 rounded-lg bg-gradient-to-r from-huntrix-cyan to-huntrix-purple hover:opacity-95 text-black font-bold text-xs font-tech flex items-center gap-1.5 transition-all shadow-neon-cyan" title="Apri Versione Stampabile Manga A4">
+                        <i class="fa-solid fa-print"></i>
+                        <span>Versione Manga A4 (Stampa)</span>
+                    </a>
                 </div>
             </div>
 
-            <!-- Visualizzatore Principale Centrale (Sfondo scuro #111, Bordo rosso #e50914) -->
+            <!-- Visualizzatore Principale Centrale (Sfondo Cyber Dark, Bordo Viola/Cyan) -->
             <div class="comic-viewer-box p-3 sm:p-6" id="main-viewer-box">
                 <div class="relative w-full flex items-center justify-center min-h-[420px] sm:min-h-[580px] bg-[#111]">
                     <img id="comic-main-img" src="assets/comics/capitolo-1/copertina.jpg" alt="Tavola Fumetto" class="comic-main-image fade-in">
@@ -452,9 +464,14 @@
                             <p class="text-xs text-gray-400">Copertina Ufficiale Inclusa • 16 Tavole Complete nel Reader</p>
                         </div>
                     </div>
-                    <a href="#reader" onclick="openReader(1)" class="px-5 py-2.5 bg-huntrix-cyan text-black font-tech text-xs font-bold rounded-lg hover:bg-cyan-300 transition-colors w-full sm:w-auto text-center shrink-0 shadow-neon-cyan">
-                        LEGGI ORA
-                    </a>
+                    <div class="flex flex-wrap items-center gap-2.5 w-full sm:w-auto shrink-0">
+                        <a href="stampa.html" target="_blank" class="px-4 py-2.5 bg-huntrix-card border border-huntrix-purple/60 hover:border-huntrix-cyan text-huntrix-cyan hover:text-white font-tech text-xs font-bold rounded-lg transition-all text-center flex items-center justify-center gap-1.5 shadow-neon-purple">
+                            <i class="fa-solid fa-print text-huntrix-purple"></i> Manga A4 (Stampa)
+                        </a>
+                        <a href="#reader" onclick="openReader(1)" class="px-5 py-2.5 bg-huntrix-cyan text-black font-tech text-xs font-bold rounded-lg hover:bg-cyan-300 transition-colors text-center shadow-neon-cyan">
+                            LEGGI ORA
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Chapter Item 2 -->

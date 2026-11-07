@@ -5,10 +5,10 @@
 
 /* Visualizzatore Principale Comic Viewer */
 .comic-viewer-box {
-  background-color: #111111;
-  border: 4px solid #e50914;
+  background-color: #0d0e17;
+  border: 3px solid #8b5cf6;
   border-radius: 12px;
-  box-shadow: 0 0 30px rgba(229, 9, 20, 0.45), 8px 8px 0px #000000;
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.35), 0 0 15px rgba(6, 182, 212, 0.25), 8px 8px 0px #000000;
   position: relative;
   overflow: hidden;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
@@ -23,8 +23,8 @@
 }
 
 .comic-viewer-box:hover {
-  border-color: #ff1f3d;
-  box-shadow: 0 0 45px rgba(229, 9, 20, 0.65), 10px 10px 0px #000000;
+  border-color: #06b6d4;
+  box-shadow: 0 0 45px rgba(6, 182, 212, 0.5), 0 0 20px rgba(139, 92, 246, 0.4), 10px 10px 0px #000000;
 }
 
 /* Immagine Principale della Tavola */
@@ -52,9 +52,9 @@
 
 /* Badge Didascalia e Titolo Tavola */
 .comic-page-badge {
-  background-color: #000000;
+  background-color: #0a0a0f;
   color: #ffffff;
-  border: 2px solid #e50914;
+  border: 2px solid #06b6d4;
   font-family: 'Orbitron', 'Bangers', sans-serif;
   font-weight: 700;
   font-size: 0.85rem;
@@ -64,14 +64,14 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 0 15px rgba(229, 9, 20, 0.35);
+  box-shadow: 0 0 15px rgba(6, 182, 212, 0.35);
 }
 
 /* Pulsanti di Navigazione Comic (Hover & Active) */
 .comic-nav-btn {
-  background-color: #161822;
+  background-color: #12131e;
   color: #ffffff;
-  border: 2px solid #e50914;
+  border: 2px solid #8b5cf6;
   font-family: 'Orbitron', 'Bangers', sans-serif;
   font-weight: 700;
   font-size: 0.95rem;
@@ -90,10 +90,10 @@
 }
 
 .comic-nav-btn:hover:not(:disabled) {
-  background-color: #e50914;
-  color: #ffffff;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  color: #0a0a0f;
   border-color: #ffffff;
-  box-shadow: 6px 6px 0px #000000, 0 0 20px rgba(229, 9, 20, 0.7);
+  box-shadow: 6px 6px 0px #000000, 0 0 25px rgba(6, 182, 212, 0.7);
   transform: translateY(-2px);
 }
 
@@ -112,16 +112,16 @@
 
 /* Contatore Pagine */
 .comic-counter-box {
-  background-color: #0b0c10;
-  border: 2px solid #2e3446;
+  background-color: #0a0a0f;
+  border: 2px solid #1e2238;
   border-radius: 8px;
   padding: 8px 20px;
-  color: #e50914;
+  color: #06b6d4;
   font-family: 'Orbitron', monospace;
   font-weight: 900;
   font-size: 1.15rem;
   letter-spacing: 2px;
-  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8), 0 0 12px rgba(6, 182, 212, 0.2);
   display: flex;
   align-items: center;
   gap: 6px;
@@ -156,7 +156,7 @@
 }
 
 .comic-thumbs-header strong {
-  color: #e50914;
+  color: #06b6d4;
 }
 
 .comic-thumbs-scroll {
@@ -178,10 +178,10 @@
 .comic-thumbs-scroll::-webkit-scrollbar-thumb {
   background: #2a2e40;
   border-radius: 4px;
-  border: 1px solid #e50914;
+  border: 1px solid #8b5cf6;
 }
 .comic-thumbs-scroll::-webkit-scrollbar-thumb:hover {
-  background: #e50914;
+  background: #06b6d4;
 }
 
 /* Singola Miniatura */
@@ -217,8 +217,8 @@
 
 /* Miniatura Attiva */
 .comic-thumb-card.active {
-  border: 3px solid #e50914 !important;
-  box-shadow: 0 0 20px rgba(229, 9, 20, 0.85), 0 0 5px #ffffff;
+  border: 3px solid #06b6d4 !important;
+  box-shadow: 0 0 20px rgba(6, 182, 212, 0.85), 0 0 8px rgba(139, 92, 246, 0.6);
   transform: translateY(-5px) scale(1.05);
 }
 
@@ -236,9 +236,9 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
-  background-color: rgba(0, 0, 0, 0.88);
+  background-color: rgba(10, 10, 15, 0.9);
   color: #ffffff;
-  border: 1px solid #e50914;
+  border: 1px solid #8b5cf6;
   font-family: 'Orbitron', monospace;
   font-size: 0.7rem;
   font-weight: 700;
@@ -248,8 +248,8 @@
 }
 
 .comic-thumb-card.active .comic-thumb-badge {
-  background-color: #e50914;
-  color: #ffffff;
+  background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+  color: #0a0a0f;
   border-color: #ffffff;
 }
 
@@ -270,3 +270,119 @@
   padding: 2px 6px;
   border-radius: 4px;
 }
+
+/* ==========================================================================
+   FORMATO MANGA A4 & REGOLE DI STAMPA (@page & @media print)
+   ========================================================================== */
+
+/* 1. Definizione Foglio A4 */
+@page {
+  size: A4 portrait;
+  margin: 10mm;
+}
+
+/* 2. Contenitore Fogli Manga A4 */
+.manga-print-container {
+  max-width: 210mm;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20mm;
+}
+
+.a4-sheet,
+.a5-sheet {
+  width: 210mm;
+  min-height: 297mm;
+  background: #ffffff;
+  box-sizing: border-box;
+  padding: 12mm;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* 3. Griglia Comic / Manga A4 */
+.comic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6mm;
+  width: 100%;
+  box-sizing: border-box;
+  margin: auto 0;
+}
+
+/* Sequenza di Lettura Giapponese (RTL: Da Destra a Sinistra) */
+.comic-grid.manga-rtl,
+.manga-rtl {
+  direction: rtl;
+}
+
+/* Sequenza di Lettura Occidentale (LTR: Da Sinistra a Destra) */
+.comic-grid.manga-ltr,
+.manga-ltr {
+  direction: ltr;
+}
+
+/* Singola Vignetta */
+.vignetta-item {
+  border: 3px solid #000000;
+  background: #000000;
+  break-inside: avoid;
+  page-break-inside: avoid;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  aspect-ratio: 16 / 9;
+}
+
+.vignetta-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 4. Regole di Stampa e Generazione PDF (@media print) */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .manga-print-container {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 0 !important;
+  }
+
+  .a4-sheet,
+  .a5-sheet {
+    width: 100% !important;
+    min-height: auto !important;
+    height: 100% !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    page-break-after: always;
+    break-after: page;
+  }
+
+  .vignetta-item {
+    border: 2.5px solid #000000 !important;
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+  }
+}
+

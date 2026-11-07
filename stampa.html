@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valpocomics - Versione Stampabile Manga A4</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@500;700;900&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Shared Style & Dedicated Print Rules -->
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+        /* ==========================================================================
+           REGOLE DI STAMPA A4 & PREVIEW DIGITALE
+           ========================================================================== */
+        
+        /* 1. Definizione Foglio A4 per la Stampa */
+        @page {
+            size: A4 portrait;
+            margin: 10mm;
+        }
+
+        /* 2. Reset e Sfondo Dark per Preview Desktop */
+        body {
+            background-color: #12131a;
+            color: #1a1a1a;
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        /* Barra Strumenti Superiore (Schermo) */
+        .print-toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 11, 16, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid #8b5cf6;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8), 0 0 15px rgba(139, 92, 246, 0.25);
+        }
+
+        .toolbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Orbitron', sans-serif;
+            color: #fff;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+
+        .toolbar-brand span {
+            color: #06b6d4;
+        }
+
+        .badge-a4,
+        .badge-a5 {
+            background: linear-gradient(135deg, #06b6d4, #8b5cf6);
+            color: #0a0a0f;
+            font-weight: 900;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Orbitron', monospace;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.4);
+        }
+
+        .toolbar-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            padding: 8px 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .btn-print {
+            background: linear-gradient(135deg, #06b6d4, #3b82f6);
+            color: #0a0a0f;
+            font-weight: 900;
+            border: 1px solid #06b6d4;
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.45);
+        }
+
+        .btn-print:hover {
+            background: linear-gradient(135deg, #22d3ee, #60a5fa);
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.75);
+            transform: translateY(-1px);
+        }
+
+        .btn-toggle-dir {
+            background: #1e2230;
+            color: #06b6d4;
+            border: 1px solid #363d54;
+        }
+
+        .btn-toggle-dir:hover {
+            background: #282e42;
+            border-color: #06b6d4;
+        }
+
+        .btn-back {
+            background: transparent;
+            color: #94a3b8;
+            border: 1px solid #334155;
+        }
+
+        .btn-back:hover {
+            color: #fff;
+            border-color: #fff;
+        }
+
+        /* 3. Contenitore Fogli A4 (Simulazione Realistica a Schermo) */
+        .manga-print-container {
+            max-width: 210mm;
+            margin: 30px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20mm;
+        }
+
+        .a4-sheet,
+        .a5-sheet {
+            width: 210mm;
+            min-height: 297mm;
+            background: #ffffff;
+            box-sizing: border-box;
+            padding: 10mm;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Copertina A4 */
+        .cover-sheet {
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: #0c0d16;
+            color: #fff;
+            border: 3px solid #8b5cf6;
+            padding: 12mm;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(139, 92, 246, 0.25);
+        }
+
+        .cover-img-wrapper {
+            max-width: 145mm;
+            width: 100%;
+            border: 2px solid #1e1b4b;
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.35), 0 0 10px rgba(139, 92, 246, 0.35);
+            margin: 0 auto 6mm auto;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .cover-img-wrapper img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .cover-title {
+            font-family: 'Bangers', cursive;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+            color: #ffffff;
+            margin: 2mm 0;
+            line-height: 1;
+        }
+
+        .cover-title span {
+            color: #06b6d4;
+        }
+
+        .cover-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.95rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 4mm;
+        }
+
+        .cover-footer {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.75rem;
+            color: #64748b;
+            border-top: 1px solid #222;
+            padding-top: 4mm;
+            width: 100%;
+        }
+
+        /* 4. Griglia Vignette (Comic / Manga Grid A4 - 6 per pagina) */
+        .comic-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4.5mm;
+            width: 100%;
+            box-sizing: border-box;
+            margin: auto 0;
+        }
+
+        /* Box Outro Conclusivo */
+        .outro-card {
+            margin-top: 5mm;
+            padding: 4mm;
+            background: #0e0f1a;
+            border: 2px solid #8b5cf6;
+            border-radius: 6px;
+            text-align: center;
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.25);
+        }
+
+        /* Direzione Manga Giapponese (RTL: Da Destra a Sinistra) */
+        .manga-rtl {
+            direction: rtl;
+        }
+
+        .manga-ltr {
+            direction: ltr;
+        }
+
+        /* Singola Vignetta */
+        .vignetta-item {
+            border: 3px solid #000000;
+            background: #000000;
+            break-inside: avoid;
+            page-break-inside: avoid;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+            aspect-ratio: 16 / 9;
+        }
+
+        .vignetta-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Badge Numero Vignetta in Stile Fumetto */
+        .panel-badge {
+            position: absolute;
+            top: 2.5mm;
+            right: 2.5mm;
+            background: #000000;
+            color: #ffffff;
+            border: 1.5px solid #ffffff;
+            font-family: 'Orbitron', monospace;
+            font-size: 8.5pt;
+            font-weight: 700;
+            padding: 1.5px 5px;
+            line-height: 1;
+            z-index: 5;
+            direction: ltr;
+        }
+
+        /* Footer Piè di Pagina A4 */
+        .sheet-footer {
+            margin-top: 6mm;
+            padding-top: 3mm;
+            border-top: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8pt;
+            color: #666;
+            font-family: 'Inter', sans-serif;
+            direction: ltr;
+        }
+
+        .sheet-footer strong {
+            color: #000;
+        }
+
+        /* ==========================================================================
+           5. REGOLE SPECIFICHE PER LA STAMPA / SALVA PDF (@media print)
+           ========================================================================== */
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+
+            .manga-print-container {
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 0 !important;
+                gap: 0 !important;
+            }
+
+            .a4-sheet,
+            .a5-sheet {
+                width: 100% !important;
+                min-height: auto !important;
+                height: 100% !important;
+                padding: 0 !important;
+                box-shadow: none !important;
+                page-break-after: always;
+                break-after: page;
+            }
+
+            .cover-sheet {
+                background: #ffffff !important;
+                color: #000000 !important;
+                border: 2px solid #000000 !important;
+            }
+
+            .cover-title {
+                color: #000000 !important;
+            }
+
+            .cover-title span {
+                color: #000000 !important;
+            }
+
+            .cover-subtitle {
+                color: #444444 !important;
+            }
+
+            .vignetta-item {
+                border: 2.5px solid #000000 !important;
+                break-inside: avoid !important;
+                page-break-inside: avoid !important;
+            }
+
+            .panel-badge {
+                background: #000000 !important;
+                color: #ffffff !important;
+                border: 1px solid #000000 !important;
+            }
+
+            .outro-card {
+                background: #ffffff !important;
+                color: #000000 !important;
+                border: 2px solid #000000 !important;
+                box-shadow: none !important;
+            }
+
+            .outro-card div {
+                color: #000000 !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- BARRA STRUMENTI SUPERIORE (NASCOSTA IN STAMPA) -->
+    <header class="print-toolbar no-print">
+        <div class="toolbar-brand">
+            <i class="fa-solid fa-book-open text-cyan-400"></i>
+            VALPO<span>COMICS</span>
+            <span class="badge-a4">FORMATO A4</span>
+        </div>
+
+        <div class="toolbar-actions">
+            <!-- Pulsante Toggle Sequenza Manga RTL / Comics LTR -->
+            <button id="toggle-dir-btn" onclick="toggleReadingDirection()" class="btn-action btn-toggle-dir" title="Cambia sequenza di lettura">
+                <i class="fa-solid fa-arrows-left-right"></i>
+                <span id="dir-label">SEQUENZA: MANGA (RTL)</span>
+            </button>
+
+            <!-- Pulsante Stampa / Salva PDF -->
+            <button onclick="window.print()" class="btn-action btn-print">
+                <i class="fa-solid fa-print"></i> STAMPA / SALVA PDF
+            </button>
+
+            <!-- Torna al Sito -->
+            <a href="index.html" class="btn-action btn-back">
+                <i class="fa-solid fa-house"></i> Home
+            </a>
+        </div>
+    </header>
+
+    <!-- CONTENITORE FOGLI A4 -->
+    <main class="manga-print-container">
+
+        <!-- FOGLIO 1: COPERTINA A4 -->
+        <article class="a4-sheet cover-sheet">
+            <div class="cover-img-wrapper">
+                <img src="assets/comics/capitolo-1/copertina.jpg" alt="Copertina Ufficiale Valpocomics">
+            </div>
+            
+            <h1 class="cover-title">VALPO<span>COMICS</span></h1>
+            <div class="cover-subtitle">CAPITOLO 1: L'ANOMALIA • EDIZIONE MANGA A4</div>
+            
+            <p style="font-size: 9.5pt; color: #cbd5e1; max-width: 140mm; margin: 0 auto 5mm; line-height: 1.5;">
+                Quando l'organizzazione segreta The Eclipse minaccia di destabilizzare l'ordine mondiale, 
+                la squadra si raduna a Neo-Verona per la battaglia decisiva.
+            </p>
+
+            <footer class="cover-footer">
+                <div>© 2026 Valpocomics — Maverick Manga Project • Edizione Speciale A4 (6 Tavole / Pagina)</div>
+                <div style="margin-top: 1.5mm; font-family: 'Orbitron', monospace; font-size: 7.5pt; color: #94a3b8;">
+                    LETTURA ORIENTALE DA DESTRA A SINISTRA (RTL) • 16 VIGNETTE TOTALI
+                </div>
+            </footer>
+        </article>
+
+        <!-- FOGLIO 2: VIGNETTE 1 - 6 -->
+        <article class="a4-sheet">
+            <div class="comic-grid manga-rtl" id="grid-sheet-1">
+                <div class="vignetta-item">
+                    <span class="panel-badge">#01</span>
+                    <img src="assets/comics/capitolo-1/vin1.jpg" alt="Vignetta 1">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#02</span>
+                    <img src="assets/comics/capitolo-1/vin2.jpg" alt="Vignetta 2">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#03</span>
+                    <img src="assets/comics/capitolo-1/vin3.jpg" alt="Vignetta 3">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#04</span>
+                    <img src="assets/comics/capitolo-1/vin4.jpg" alt="Vignetta 4">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#05</span>
+                    <img src="assets/comics/capitolo-1/vin5.jpg" alt="Vignetta 5">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#06</span>
+                    <img src="assets/comics/capitolo-1/vin6.jpg" alt="Vignetta 6">
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <span>VALPOCOMICS • <strong>Capitolo 1</strong></span>
+                <span>Pagina <strong>2</strong> di 4</span>
+                <span>Edizione A4 • 6 Vignette / Pagina [RTL]</span>
+            </footer>
+        </article>
+
+        <!-- FOGLIO 3: VIGNETTE 7 - 12 -->
+        <article class="a4-sheet">
+            <div class="comic-grid manga-rtl" id="grid-sheet-2">
+                <div class="vignetta-item">
+                    <span class="panel-badge">#07</span>
+                    <img src="assets/comics/capitolo-1/vin7.jpg" alt="Vignetta 7">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#08</span>
+                    <img src="assets/comics/capitolo-1/vin8.jpg" alt="Vignetta 8">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#09</span>
+                    <img src="assets/comics/capitolo-1/vin9.jpg" alt="Vignetta 9">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#10</span>
+                    <img src="assets/comics/capitolo-1/vin10.jpg" alt="Vignetta 10">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#11</span>
+                    <img src="assets/comics/capitolo-1/vin11.jpg" alt="Vignetta 11">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#12</span>
+                    <img src="assets/comics/capitolo-1/vin12.jpg" alt="Vignetta 12">
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <span>VALPOCOMICS • <strong>Capitolo 1</strong></span>
+                <span>Pagina <strong>3</strong> di 4</span>
+                <span>Edizione A4 • 6 Vignette / Pagina [RTL]</span>
+            </footer>
+        </article>
+
+        <!-- FOGLIO 4: VIGNETTE 13 - 16 & CONCLUSIONE CAPITOLO 1 -->
+        <article class="a4-sheet">
+            <div class="comic-grid manga-rtl" id="grid-sheet-3">
+                <div class="vignetta-item">
+                    <span class="panel-badge">#13</span>
+                    <img src="assets/comics/capitolo-1/vin13.jpg" alt="Vignetta 13">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#14</span>
+                    <img src="assets/comics/capitolo-1/vin14.jpg" alt="Vignetta 14">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#15</span>
+                    <img src="assets/comics/capitolo-1/vin15.jpg" alt="Vignetta 15">
+                </div>
+                <div class="vignetta-item">
+                    <span class="panel-badge">#16</span>
+                    <img src="assets/comics/capitolo-1/vin16.jpg" alt="Vignetta 16">
+                </div>
+            </div>
+
+            <!-- Outro Card Conclusiva -->
+            <div class="outro-card">
+                <div style="font-family: 'Bangers', cursive; font-size: 1.5rem; color: #06b6d4; letter-spacing: 1px; line-height: 1.2;">
+                    FINE DEL CAPITOLO 1: L'ANOMALIA
+                </div>
+                <div style="font-family: 'Orbitron', sans-serif; font-size: 8pt; color: #94a3b8; margin-top: 1.5mm;">
+                    LA BATTAGLIA CONTINUA NEL CAPITOLO 2 • THE ECLIPSE STRIKES BACK
+                </div>
+            </div>
+
+            <footer class="sheet-footer">
+                <span>VALPOCOMICS • <strong>Capitolo 1</strong></span>
+                <span>Pagina <strong>4</strong> di 4 (Finale)</span>
+                <span>Edizione A4 • Continua nel Capitolo 2</span>
+            </footer>
+        </article>
+
+    </main>
+
+    <!-- SCRIPT GESTIONE SEQUENZA DI LETTURA (RTL / LTR) -->
+    <script>
+        let isRTL = true;
+
+        function toggleReadingDirection() {
+            isRTL = !isRTL;
+            const grids = document.querySelectorAll('.comic-grid');
+            const label = document.getElementById('dir-label');
+
+            grids.forEach(grid => {
+                if (isRTL) {
+                    grid.classList.remove('manga-ltr');
+                    grid.classList.add('manga-rtl');
+                } else {
+                    grid.classList.remove('manga-rtl');
+                    grid.classList.add('manga-ltr');
+                }
+            });
+
+            if (label) {
+                label.innerText = isRTL ? 'SEQUENZA: MANGA (RTL)' : 'SEQUENZA: COMICS (LTR)';
+            }
+        }
+    </script>
+</body>
+</html>
