@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="it" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maverick: Rooftop Runner - Mini Gioco Arcade | Valpocomics</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        comic: ['Bangers', 'cursive'],
+                        tech: ['Orbitron', 'sans-serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        huntrix: {
+                            dark: '#0a0a0f',
+                            card: '#12131e',
+                            purple: '#8b5cf6',
+                            cyan: '#06b6d4',
+                            crimson: '#f43f5e',
+                            accent: '#3b82f6'
+                        }
+                    },
+                    boxShadow: {
+                        'neon-cyan': '0 0 20px rgba(6, 182, 212, 0.4)',
+                        'neon-purple': '0 0 20px rgba(139, 92, 246, 0.4)',
+                        'neon-crimson': '0 0 20px rgba(244, 63, 94, 0.4)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom Arcade CSS -->
+    <link rel="stylesheet" href="gioco.css">
+</head>
+<body class="bg-huntrix-dark text-gray-100 font-sans antialiased overflow-x-hidden selection:bg-huntrix-cyan selection:text-black min-h-screen flex flex-col justify-between">
+
+    <!-- NAVBAR -->
+    <nav class="fixed top-0 left-0 w-full z-50 bg-huntrix-dark/95 backdrop-blur-md border-b border-gray-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-3">
+                    <span class="font-tech text-3xl font-black tracking-widest text-transparent bg-clip-text bg-gradient-to-r from-huntrix-cyan via-white to-huntrix-crimson">
+                        MAVERICK
+                    </span>
+                    <span class="text-xs font-tech bg-huntrix-purple/20 text-huntrix-purple border border-huntrix-purple/40 px-2 py-0.5 rounded">MANGA</span>
+                </a>
+                
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-7 text-sm font-tech uppercase tracking-wider font-semibold">
+                    <a href="index.html#hero" class="hover:text-huntrix-cyan transition-colors">Home</a>
+                    <a href="index.html#storia" class="hover:text-huntrix-cyan transition-colors">La Storia</a>
+                    <a href="index.html#personaggi" class="hover:text-huntrix-cyan transition-colors">Personaggi</a>
+                    <a href="index.html#reader" class="hover:text-huntrix-cyan transition-colors">Leggi Anteprima</a>
+                    <a href="index.html#capitoli" class="hover:text-huntrix-cyan transition-colors">Capitoli</a>
+                    <a href="gioco.html" class="text-white px-3 py-1.5 rounded-lg bg-huntrix-crimson border border-huntrix-crimson shadow-neon-crimson flex items-center gap-2">
+                        <i class="fa-solid fa-gamepad animate-pulse"></i> Mini Gioco
+                    </a>
+                </div>
+
+                <!-- CTA Torna al Fumetto -->
+                <div class="hidden md:block">
+                    <a href="index.html" class="inline-block bg-gray-900 hover:bg-gray-800 text-huntrix-cyan border border-huntrix-cyan/50 font-tech font-bold px-5 py-2 rounded text-xs transition-all shadow-neon-cyan">
+                        <i class="fa-solid fa-arrow-left mr-1.5"></i> TORNA AL SITO
+                    </a>
+                </div>
+
+                <!-- Mobile Menu Toggle Button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2">
+                        <i class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-huntrix-card border-b border-gray-800 px-4 pt-2 pb-6 space-y-3 font-tech text-center">
+            <a href="index.html#hero" class="mobile-link block py-2 hover:text-huntrix-cyan">Home</a>
+            <a href="index.html#storia" class="mobile-link block py-2 hover:text-huntrix-cyan">La Storia</a>
+            <a href="index.html#personaggi" class="mobile-link block py-2 hover:text-huntrix-cyan">Personaggi</a>
+            <a href="index.html#reader" class="mobile-link block py-2 hover:text-huntrix-cyan">Leggi Anteprima</a>
+            <a href="index.html#capitoli" class="mobile-link block py-2 hover:text-huntrix-cyan">Capitoli</a>
+            <a href="gioco.html" class="block py-2 text-white font-bold bg-huntrix-crimson rounded">
+                <i class="fa-solid fa-gamepad mr-1"></i> Mini Gioco Arcade
+            </a>
+        </div>
+    </nav>
+
+    <!-- SEZIONE GIOCO / ARCADE CABINET -->
+    <main class="flex-grow pt-28 pb-16 px-3 sm:px-6 max-w-6xl mx-auto w-full">
+        
+        <!-- Intestazione Arcade -->
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-gray-900/90 border border-huntrix-crimson/50 text-huntrix-crimson text-xs font-tech uppercase tracking-widest mb-3 shadow-neon-crimson">
+                <i class="fa-solid fa-gamepad text-yellow-400"></i> RETRO ARCADE RUNNER • 2D EDITION
+            </div>
+            <h1 class="font-comic text-4xl sm:text-6xl text-white tracking-wider drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
+                MAVERICK: <span class="text-transparent bg-clip-text bg-gradient-to-r from-huntrix-cyan via-white to-huntrix-crimson">ROOFTOP ESCAPE</span>
+            </h1>
+            <p class="text-gray-400 font-tech text-xs sm:text-sm max-w-2xl mx-auto mt-2">
+                I droni dell'Eclipse hanno invaso i tetti di Neo-Verona! Corri, salta gli ostacoli e raccogli le sfere di energia per attivare lo Scudo Disegno.
+            </p>
+        </div>
+
+        <!-- Arcade Screen Container -->
+        <div class="bg-huntrix-card border-2 border-gray-800 rounded-2xl p-3 sm:p-5 shadow-2xl relative">
+            
+            <!-- HUD Superiore Arcade -->
+            <div class="bg-black/90 border border-gray-800 rounded-xl p-3 sm:p-4 mb-3 flex flex-wrap items-center justify-between gap-3 font-tech text-xs sm:text-sm">
+                <!-- Punteggio & Distanza -->
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <div>
+                        <span class="text-gray-500 uppercase tracking-wider text-[10px] block">PUNTEGGIO</span>
+                        <span id="hud-score-val" class="font-bold text-lg sm:text-xl text-huntrix-cyan">0</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 uppercase tracking-wider text-[10px] block">DISTANZA</span>
+                        <span id="hud-dist-val" class="font-bold text-lg sm:text-xl text-white">0m</span>
+                    </div>
+                    <div>
+                        <span class="text-gray-500 uppercase tracking-wider text-[10px] block">RECORD</span>
+                        <span id="hud-high-val" class="font-bold text-lg sm:text-xl text-yellow-400">0</span>
+                    </div>
+                </div>
+
+                <!-- Barra Energia Scudo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-28 sm:w-44">
+                        <div class="flex justify-between text-[10px] text-gray-400 mb-1">
+                            <span>SCUDO TATTICO</span>
+                            <span id="hud-energy-pct" class="text-huntrix-cyan font-bold">0%</span>
+                        </div>
+                        <div class="w-full bg-gray-900 border border-gray-700 h-2.5 rounded-full overflow-hidden">
+                            <div id="hud-energy-bar" class="h-full bg-gradient-to-r from-huntrix-cyan to-blue-500 w-0 transition-all duration-200"></div>
+                        </div>
+                    </div>
+                    <!-- Bottone Scudo Rapido -->
+                    <button id="btn-special-shield" class="opacity-40 cursor-not-allowed bg-huntrix-card hover:bg-gray-800 border border-gray-700 text-huntrix-cyan px-2.5 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5" title="Attiva Scudo quando al 100%">
+                        <i class="fa-solid fa-shield-halved"></i>
+                        <span class="hidden sm:inline">[X] SCUDO</span>
+                    </button>
+                </div>
+
+                <!-- Controlli Audio & Pausa -->
+                <div class="flex items-center gap-2">
+                    <button id="btn-pause" class="w-9 h-9 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan text-gray-300 hover:text-white flex items-center justify-center transition-all" title="Pausa (P)">
+                        <i class="fa-solid fa-pause"></i>
+                    </button>
+                    <button id="btn-mute" class="w-9 h-9 rounded-lg bg-gray-900 border border-gray-700 hover:border-huntrix-cyan flex items-center justify-center transition-all" title="Attiva/Disattiva Audio">
+                        <i class="fa-solid fa-volume-high text-huntrix-cyan"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Arcade Canvas Wrapper con Scanlines CRT -->
+            <div class="arcade-screen-wrapper arcade-frame-glow relative">
+                <canvas id="gameCanvas" width="900" height="420"></canvas>
+            </div>
+
+            <!-- Controlli Touch Virtuali per Smartphone / Tablet -->
+            <div class="mt-4 grid grid-cols-2 gap-3 sm:hidden">
+                <button id="touch-jump-btn" class="touch-jump-btn py-4 rounded-xl text-center text-white font-tech font-black text-lg tracking-wider border border-red-400 flex items-center justify-center gap-2 shadow-neon-crimson">
+                    <i class="fa-solid fa-arrow-up text-xl"></i> SALTA
+                </button>
+                <button onclick="document.getElementById('btn-special-shield').click()" class="touch-special-btn py-4 rounded-xl text-center text-white font-tech font-black text-lg tracking-wider border border-cyan-400 flex items-center justify-center gap-2 shadow-neon-cyan">
+                    <i class="fa-solid fa-shield-halved text-xl"></i> SCUDO
+                </button>
+            </div>
+
+            <!-- Legenda Comandi -->
+            <div class="mt-4 pt-4 border-t border-gray-800 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-400 font-tech">
+                <div class="flex items-center gap-4 flex-wrap">
+                    <span class="text-white font-bold"><i class="fa-solid fa-keyboard mr-1 text-huntrix-cyan"></i> COMANDI:</span>
+                    <span><kbd class="px-2 py-0.5 bg-gray-800 text-white border border-gray-700 rounded">SPAZIO</kbd> o <kbd class="px-2 py-0.5 bg-gray-800 text-white border border-gray-700 rounded">↑</kbd> : Salto / Doppio Salto</span>
+                    <span><kbd class="px-2 py-0.5 bg-gray-800 text-white border border-gray-700 rounded">X</kbd> : Scudo Energetico</span>
+                    <span><kbd class="px-2 py-0.5 bg-gray-800 text-white border border-gray-700 rounded">P</kbd> : Pausa</span>
+                </div>
+                <div class="flex items-center gap-1.5 text-huntrix-cyan">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Supporto Touch Mobile Integrato
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-black border-t border-gray-900 py-8 text-center text-xs text-gray-500 font-tech">
+        <p>© 2026 Valpocomics — Maverick: Rooftop Runner. Tutti i diritti riservati.</p>
+    </footer>
+
+    <!-- Game Engine Script -->
+    <script src="gioco.js"></script>
+
+    <!-- Mobile Menu Script -->
+    <script>
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+/* ==========================================================================
+   VALPOCOMICS ARCADE - GIOCO.CSS
+   Stile Retro Dark Comic / Cyberpunk Arcade Runner
+   ========================================================================== */
+
+/* CRT Scanline Effect Overlay */
+.arcade-screen-wrapper {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 0 35px rgba(6, 182, 212, 0.25), inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.arcade-screen-wrapper::after {
+  content: " ";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.03), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.03));
+  z-index: 20;
+  background-size: 100% 3px, 6px 100%;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+/* Canvas styling */
+#gameCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 520px;
+  background: #07080f;
+  border: 3px solid #1f2438;
+  border-radius: 0.75rem;
+  touch-action: none;
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Pulsing Arcade Lights */
+@keyframes arcadePulse {
+  0%, 100% {
+    box-shadow: 0 0 15px rgba(244, 63, 94, 0.5), inset 0 0 15px rgba(244, 63, 94, 0.3);
+    border-color: #f43f5e;
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.7), inset 0 0 20px rgba(6, 182, 212, 0.4);
+    border-color: #06b6d4;
+  }
+}
+
+.arcade-frame-glow {
+  animation: arcadePulse 4s infinite alternate ease-in-out;
+}
+
+/* Retro Arcade Coin / Badge Blink */
+@keyframes insertCoinBlink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0.2; }
+}
+
+.blink-text {
+  animation: insertCoinBlink 1.2s infinite;
+}
+
+/* Mobile Virtual Controls */
+.touch-jump-btn {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background: radial-gradient(circle at 30% 30%, #f43f5e, #9f1239);
+  box-shadow: 0 6px 0 #4c0519, 0 10px 20px rgba(244, 63, 94, 0.4);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.touch-jump-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #4c0519, 0 4px 10px rgba(244, 63, 94, 0.6);
+}
+
+.touch-special-btn {
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  background: radial-gradient(circle at 30% 30%, #06b6d4, #0e7490);
+  box-shadow: 0 6px 0 #164e63, 0 10px 20px rgba(6, 182, 212, 0.4);
+  transition: transform 0.08s ease, box-shadow 0.08s ease;
+}
+
+.touch-special-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #164e63, 0 4px 10px rgba(6, 182, 212, 0.6);
+}
+
+/* Custom Cut-Corner Badges */
+.clip-retro-badge {
+  clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+}
