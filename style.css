@@ -626,6 +626,7 @@ a.btn-action,
   a[href="stampa.html"],
   a[href="reader.html"],
   a[href="gioco.html"],
+  a[href="arena.html"],
   #mobile-menu a {
     min-height: 48px !important;
     display: inline-flex !important;

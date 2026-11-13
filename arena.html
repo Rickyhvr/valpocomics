@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Arena Manga: Arbizzano City — Picchiaduro 2D | Valpocomics</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:ital,wght@0,700;1,700&family=Orbitron:wght@600;800;900&family=Inter:wght@500;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stili Arena Manga -->
+    <link rel="stylesheet" href="arena.css">
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <header class="arena-topbar">
+        <a href="index.html" class="brand" title="Torna al sito Valpocomics">
+            <span class="brand-logo">VALPOCOMICS</span>
+            <span class="brand-tag">ARENA MANGA</span>
+        </a>
+        <nav class="topbar-links">
+            <a href="index.html"><i class="fa-solid fa-house"></i><span>Home</span></a>
+            <a href="reader.html"><i class="fa-solid fa-book-open"></i><span>Fumetto</span></a>
+            <a href="gioco.html"><i class="fa-solid fa-person-running"></i><span>Runner</span></a>
+            <button id="btn-touch" class="icon-btn" title="Mostra/Nascondi tasti su schermo"><i class="fa-solid fa-gamepad"></i></button>
+            <button id="btn-mute" class="icon-btn" title="Audio on/off"><i class="fa-solid fa-volume-high"></i></button>
+            <button id="btn-fullscreen" class="icon-btn" title="Schermo intero"><i class="fa-solid fa-expand"></i></button>
+        </nav>
+    </header>
+
+    <main class="arena-main">
+
+        <!-- ================= SCHERMATA DI SELEZIONE MANGA (VERSUS) ================= -->
+        <section id="select-screen" class="select-screen">
+            <div class="select-header">
+                <div class="manga-caption">EDIZIONE SPECIALE FUMETTO • ARBIZZANO CITY</div>
+                <h1 class="select-title">SCEGLI IL TUO EROE!</h1>
+                <p class="select-sub">Scegli chi controllare e sfida il tuo compagno davanti al Bunker e alle strade di Arbizzano.</p>
+            </div>
+
+            <div class="versus-row">
+                <!-- MAVERICK -->
+                <article class="fighter-card selected" data-fighter="maverick" style="--c:#e50914; --c-soft:rgba(229,9,20,.18);">
+                    <div class="card-tag">TU — P1</div>
+                    <canvas class="portrait" data-portrait="maverick"></canvas>
+                    <div class="card-body">
+                        <h2 class="card-name">MAVERICK</h2>
+                        <p class="card-role">Leader Strategico • Creation Art</p>
+                        <p class="card-desc">Giacca rossa, ciuffo biondo e matita sempre pronta. Colpi potenti e creatività esplosiva.</p>
+                        <div class="card-super"><span>SUPER</span> Disegno Carroarmato</div>
+                        <p class="card-super-desc">Schizza un carroarmato luminoso che si materializza sulla strada, avanza e spara un colpo esplosivo!</p>
+                        <div class="stat"><label>Potenza</label><div class="stat-bar"><i style="width:90%"></i></div></div>
+                        <div class="stat"><label>Velocità</label><div class="stat-bar"><i style="width:68%"></i></div></div>
+                    </div>
+                </article>
+
+                <div class="vs-center">
+                    <span class="vs-text">VS</span>
+                    <button id="btn-start-quick" class="btn-fight-mini"><i class="fa-solid fa-play"></i> INIZIA!</button>
+                </div>
+
+                <!-- ALE -->
+                <article class="fighter-card" data-fighter="ale" style="--c:#0284c7; --c-soft:rgba(2,132,199,.18);">
+                    <div class="card-tag">CPU</div>
+                    <canvas class="portrait" data-portrait="ale"></canvas>
+                    <div class="card-body">
+                        <h2 class="card-name">ALE</h2>
+                        <p class="card-role">Combattente d'Assalto • Ki Blu</p>
+                        <p class="card-desc">Felpa verde, maglia arancione e velocità supersonica. Scatta addosso all'avversario in un lampo.</p>
+                        <div class="card-super"><span>SUPER</span> Onda Energetica</div>
+                        <p class="card-super-desc">Carica l'aura blu tra le mani e lancia una Kamehameha travolgente lungo tutta la tavola!</p>
+                        <div class="stat"><label>Potenza</label><div class="stat-bar"><i style="width:78%"></i></div></div>
+                        <div class="stat"><label>Velocità</label><div class="stat-bar"><i style="width:92%"></i></div></div>
+                    </div>
+                </article>
+            </div>
+
+            <div class="select-footer">
+                <div class="difficulty">
+                    <span class="diff-label">Difficoltà CPU:</span>
+                    <button class="diff-btn active" data-level="facile">Facile</button>
+                    <button class="diff-btn" data-level="normale">Normale</button>
+                    <button class="diff-btn" data-level="difficile">Difficile</button>
+                </div>
+                <button id="btn-start" class="btn-fight"><i class="fa-solid fa-bolt"></i> COMBATTI ORA!</button>
+            </div>
+
+            <div class="quick-help-bar">
+                <span><i class="fa-regular fa-keyboard"></i> <b>Tastiera:</b> <kbd>←</kbd><kbd>→</kbd> o <kbd>A</kbd><kbd>D</kbd> Muovi · <kbd>↑</kbd>/<kbd>W</kbd>/<kbd>Spazio</kbd> Salta · <kbd>↓</kbd>/<kbd>S</kbd> Para · <kbd>J</kbd>/<kbd>Z</kbd> Pugno · <kbd>K</kbd>/<kbd>X</kbd> Calcio · <kbd>L</kbd>/<kbd>C</kbd> Super</span>
+                <span><i class="fa-solid fa-computer-mouse"></i> Puoi usare anche i <b>tasti cliccabili</b> direttamente sotto l'arena!</span>
+            </div>
+        </section>
+
+        <!-- ================= ARENA DI GIOCO MANGA ================= -->
+        <section id="arena-stage" class="arena-stage hidden">
+            <div id="game-wrap" class="game-wrap">
+                <canvas id="arena-canvas" aria-label="Arena di combattimento stile manga"></canvas>
+
+                <button id="btn-pause" class="pause-btn" title="Pausa (P)"><i class="fa-solid fa-pause"></i></button>
+
+                <!-- Pausa -->
+                <div id="pause-screen" class="overlay hidden">
+                    <div class="overlay-box">
+                        <h2 class="overlay-title">PAUSA</h2>
+                        <div class="overlay-actions">
+                            <button class="btn-ov primary" data-action="resume"><i class="fa-solid fa-play"></i> Riprendi</button>
+                            <button class="btn-ov" data-action="restart"><i class="fa-solid fa-rotate-right"></i> Ricomincia</button>
+                            <button class="btn-ov" data-action="select"><i class="fa-solid fa-users"></i> Cambia personaggio</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Risultato -->
+                <div id="result-screen" class="overlay hidden">
+                    <div class="overlay-box">
+                        <p id="result-kicker" class="result-kicker">K.O.!</p>
+                        <h2 id="result-title" class="overlay-title">VITTORIA!</h2>
+                        <p id="result-sub" class="result-sub"></p>
+                        <p id="result-score" class="result-score"></p>
+                        <div class="overlay-actions">
+                            <button class="btn-ov primary" data-action="restart"><i class="fa-solid fa-rotate-right"></i> Rigioca</button>
+                            <button class="btn-ov" data-action="select"><i class="fa-solid fa-users"></i> Cambia personaggio</button>
+                            <a class="btn-ov" href="index.html"><i class="fa-solid fa-house"></i> Torna al sito</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controlli Touch Overlay (Mobile / Tablet) -->
+                <div id="touch-controls" class="touch-controls hidden">
+                    <div class="touch-move-pad">
+                        <button class="t-dir up" data-input="up" aria-label="Salta"><i class="fa-solid fa-arrow-up"></i><span>SALTA</span></button>
+                        <div class="t-dir-row">
+                            <button class="t-dir left" data-input="left" aria-label="Sinistra"><i class="fa-solid fa-arrow-left"></i></button>
+                            <button class="t-dir down" data-input="down" aria-label="Para"><i class="fa-solid fa-shield-halved"></i></button>
+                            <button class="t-dir right" data-input="right" aria-label="Destra"><i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="action-pad">
+                        <button class="act-btn super" data-action="super"><i class="fa-solid fa-bolt"></i><span>SUPER</span></button>
+                        <button class="act-btn punch" data-action="punch"><i class="fa-solid fa-hand-fist"></i><span>PUGNO</span></button>
+                        <button class="act-btn kick" data-action="kick"><i class="fa-solid fa-shoe-prints"></i><span>CALCIO</span></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barra Controlli Rapidi Sempre Visibile sotto l'Arena (Desktop / Mouse + Promemoria Tasti) -->
+            <div class="arcade-deck">
+                <div class="deck-group">
+                    <button class="deck-btn" data-input="left"><i class="fa-solid fa-arrow-left"></i><span>A / ←</span></button>
+                    <button class="deck-btn" data-input="down"><i class="fa-solid fa-shield-halved"></i><span>PARA (S/↓)</span></button>
+                    <button class="deck-btn" data-input="up"><i class="fa-solid fa-arrow-up"></i><span>SALTA (W/↑)</span></button>
+                    <button class="deck-btn" data-input="right"><i class="fa-solid fa-arrow-right"></i><span>D / →</span></button>
+                </div>
+                <div class="deck-group">
+                    <button class="deck-btn atk-punch" data-action="punch"><i class="fa-solid fa-hand-fist"></i><span>PUGNO (J/Z)</span></button>
+                    <button class="deck-btn atk-kick" data-action="kick"><i class="fa-solid fa-bolt"></i><span>CALCIO (K/X)</span></button>
+                    <button class="deck-btn atk-super" id="deck-super-btn" data-action="super"><i class="fa-solid fa-fire"></i><span>SUPER (L/C)</span></button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="arena.js"></script>
+</body>
+</html>
