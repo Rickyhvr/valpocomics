@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VALPOCOMICS ARCADE - GIOCO.JS
+   MAVECOMICS ARCADE - GIOCO.JS
    Runner 2D Retro Dark: Maverick Rooftop Escape
    ========================================================================== */
 
@@ -584,7 +584,7 @@
         // Badge
         ctx.font = '700 13px Orbitron, sans-serif';
         ctx.fillStyle = '#06b6d4';
-        ctx.fillText('VALPOCOMICS RETRO ARCADE', V_WIDTH / 2, 110);
+        ctx.fillText('MAVECOMICS RETRO ARCADE', V_WIDTH / 2, 110);
 
         // Titolo Grande
         ctx.font = '900 52px Bangers, cursive';

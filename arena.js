@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VALPOCOMICS ARENA - ARENA.JS
+   MAVECOMICS ARENA - ARENA.JS
    Picchiaduro 2D Stile Manga Shonen — Arbizzano City (Maverick vs Ale)
    ========================================================================== */
 
